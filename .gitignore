@@ -1,0 +1,7 @@
+test/_site
+test/_sass
+test/.sass-cache
+test/.jekyll-metadata
+test/node_modules
+test/.gz
+.DS_Store

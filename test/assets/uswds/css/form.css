@@ -1,0 +1,30 @@
+.sidenav{
+    display: block;
+    float: left;
+    margin-bottom: 3rem;
+    margin-top: 2rem;
+    padding-right: 0;
+    padding-left: 2rem;
+    width: 15rem
+}
+
+
+.method-filter{
+  border: 2px solid
+    rgba(0,0,0,.1);
+  border-radius: .25rem;
+}
+
+.method-result{
+  border: 1px solid #dbe7ef;
+  border-radius:5px;
+  padding: 24px;
+  margin-bottom: 1.2em;
+  overflow: auto;
+  background-color: #f7fbfe;
+}
+
+.hidden {
+  display: none!important;
+  visibility: hidden!important;
+}
