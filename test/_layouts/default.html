@@ -9,9 +9,16 @@
 
   {% include banner.html%}
   {% include header.html%}
+  <div class = "default-container">
 
-  {{ content }}
+    {% include sidenav.html %}
 
+      <main id="main-content" class ="main-content test">
+        <div class="styleguide-content usa-prose site-prose">
+          {{ content }}
+        </div>
+      </main>
+  </div>
   {% include footer.html%}
 
   <script src="{{ "/assets/uswds/js/uswds.min.js" | relative_url }}"></script>

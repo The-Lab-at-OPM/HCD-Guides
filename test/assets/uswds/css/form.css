@@ -1,3 +1,8 @@
+.default-container{
+  display:block;
+  overflow: auto;
+}
+
 .sidenav{
     display: block;
     float: left;
@@ -12,8 +17,18 @@
   border: 2px solid
     rgba(0,0,0,.1);
   border-radius: .25rem;
+  display: inline-block ;
 }
 
+.method-result{
+  border: 1px solid #dbe7ef;
+  border-radius:5px;
+  padding: 24px;
+  margin-bottom: 1.2em;
+  overflow: auto;
+  background-color: #f7fbfe;
+  display: inline-block;
+}
 .main-content{
   display:inline-block;
   position:relative;
@@ -43,18 +58,11 @@ ul.descriptor{
     padding-left: 0;
 
 }
-.method-result{
-  border: 1px solid #dbe7ef;
-  border-radius:5px;
-  padding: 24px;
-  margin-bottom: 1.2em;
-  overflow: auto;
-  background-color: #f7fbfe;
-}
+
 
 .sort-categories{
   margin: 3em 0;
-  
+
   padding-left: 0;
   padding-right: 0;
 
@@ -68,7 +76,6 @@ ul.descriptor{
   padding-top: 5em;
   padding-bottom: 5em;
 }
-
 
 .hidden {
   display: none!important;

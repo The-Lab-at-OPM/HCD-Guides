@@ -10,6 +10,8 @@ markdown: kramdown
 collections:
   resources:
     output: true
+  tag-library:
+    output: true
 
 exclude:
   - assets/js/src
