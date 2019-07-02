@@ -1,0 +1,21 @@
+title: The Lab at OPM
+email: lap@opm.gov
+description: >- # this means to ignore newlines until "baseurl:"
+  The Lab helps government organizations transform their programs, processes, and people through human-centered design.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Build settings
+markdown: kramdown
+collections:
+  resources:
+    output: true
+
+exclude:
+  - assets/js/src
+  - Gemfile*
+  - node_modules
+  - package*.json
+  - README.md
+  - vendor
+  - webpack.config.js

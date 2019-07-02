@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1326 735" style="enable-background:new 0 0 1326 735;" xml:space="preserve">
+<style type="text/css">
+	.st0{font-family:'CooperHewitt-Medium';}
+	.st1{font-size:35.9511px;}
+	.st2{font-size:36.0014px;}
+	.st3{font-size:36px;}
+	.st4{font-size:35.9988px;}
+	.st5{font-size:36.0809px;}
+	.st6{font-size:36.0012px;}
+	.st7{font-size:36.0016px;}
+	.st8{font-size:36.0896px;}
+	.st9{font-size:36.045px;}
+	.st10{font-size:35.9946px;}
+	.st11{font-size:35.9081px;}
+	.st12{font-size:35.9987px;}
+	.st13{font-size:36.0467px;}
+	.st14{font-size:35.9514px;}
+	.st15{font-size:35.872px;}
+	.st16{font-size:35.9027px;}
+	.st17{font-size:35.9983px;}
+	.st18{font-size:35.973px;}
+	.st19{clip-path:url(#SVGID_2_);}
+	.st20{fill:#00C2E5;}
+	.st21{fill:#F26624;}
+	.st22{fill:#0091CF;}
+	.st23{fill:#0D8742;}
+	.st24{fill:#00663B;}
+	.st25{fill:none;stroke:#FAA61C;stroke-width:5;stroke-linecap:round;stroke-miterlimit:10;}
+</style>
+<title>iteration-iterative_loops</title>
+<g id="Layer_2_1_">
+	<text transform="matrix(0.8412 -0.5408 0.5408 0.8412 201.1601 97.6707)" class="st0 st1">I</text>
+	<text transform="matrix(0.8716 -0.4903 0.4903 0.8716 208.2398 92.8899)" class="st0 st2">T</text>
+	<text transform="matrix(0.9087 -0.4175 0.4175 0.9087 224.43 83.7501)" class="st0 st3">E</text>
+	<text transform="matrix(0.9393 -0.343 0.343 0.9393 242.17 75.5497)" class="st0 st4">R</text>
+	<text transform="matrix(0.9633 -0.2684 0.2684 0.9633 261.58 68.42)" class="st0 st3">A</text>
+	<text transform="matrix(0.9778 -0.2095 0.2095 0.9778 280.9095 63.0194)" class="st0 st5">T</text>
+	<text transform="matrix(0.9872 -0.1597 0.1597 0.9872 299.31 59.2695)" class="st0 st6">I</text>
+	<text transform="matrix(0.9943 -0.1068 0.1068 0.9943 307.78 57.69)" class="st0 st3">O</text>
+	<text transform="matrix(0.9996 -2.983935e-02 2.983935e-02 0.9996 330.79 55.1903)" class="st0 st7">N</text>
+	<text transform="matrix(0.9976 6.982627e-02 -6.982627e-02 0.9976 361.3602 54.6515)" class="st0 st8">1</text>
+	<text transform="matrix(0.829 -0.5593 0.5593 0.829 523.0902 110.9697)" class="st0 st9">I</text>
+	<text transform="matrix(0.8601 -0.5101 0.5101 0.8601 530.0905 106.0706)" class="st0 st10">T</text>
+	<text transform="matrix(0.9023 -0.4311 0.4311 0.9023 546.1102 96.6502)" class="st0 st11">E</text>
+	<text transform="matrix(0.9333 -0.359 0.359 0.9333 563.7197 88.1496)" class="st0 st12">R</text>
+	<text transform="matrix(0.9585 -0.285 0.285 0.9585 582.9899 80.6899)" class="st0 st3">A</text>
+	<text transform="matrix(0.975 -0.2222 0.2222 0.975 602.24 74.9501)" class="st0 st3">T</text>
+	<text transform="matrix(0.9843 -0.1766 0.1766 0.9843 620.5599 70.89)" class="st0 st3">I</text>
+	<text transform="matrix(0.9923 -0.1239 0.1239 0.9923 629.0001 69.17)" class="st0 st3">O</text>
+	<text transform="matrix(0.9989 -4.710645e-02 4.710645e-02 0.9989 651.97 66.28)" class="st0 st3">N</text>
+	<text transform="matrix(0.9988 4.993524e-02 -4.993524e-02 0.9988 682.5303 65.2104)" class="st0 st13">2</text>
+	<text transform="matrix(0.8211 -0.5708 0.5708 0.8211 840.7994 106.7296)" class="st0 st14">I</text>
+	<text transform="matrix(0.853 -0.5219 0.5219 0.853 847.7007 101.68)" class="st0 st15">T</text>
+	<text transform="matrix(0.8924 -0.4512 0.4512 0.8924 863.5196 91.9397)" class="st0 st16">E</text>
+	<text transform="matrix(0.9257 -0.3783 0.3783 0.9257 880.94 83.0699)" class="st0 st3">R</text>
+	<text transform="matrix(0.9524 -0.3047 0.3047 0.9524 900.0599 75.2096)" class="st0 st17">A</text>
+	<text transform="matrix(0.9707 -0.2402 0.2402 0.9707 919.1804 69.0803)" class="st0 st18">T</text>
+	<text transform="matrix(0.9804 -0.197 0.197 0.9804 937.42 64.63)" class="st0 st3">I</text>
+	<text transform="matrix(0.9895 -0.1445 0.1445 0.9895 945.82 62.74)" class="st0 st3">O</text>
+	<text transform="matrix(0.9977 -6.784116e-02 6.784116e-02 0.9977 968.72 59.37)" class="st0 st3">N</text>
+	<text transform="matrix(0.9995 3.193410e-02 -3.193410e-02 0.9995 999.2598 57.6699)" class="st0 st3">3</text>
+	<g>
+		<g>
+			<defs>
+				<rect id="SVGID_1_" x="103" y="65.6" width="1134" height="530.4"/>
+			</defs>
+			<clipPath id="SVGID_2_">
+				<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
+			</clipPath>
+			<g class="st19">
+				<path class="st20" d="M666.3,81.8h-1.1c-55.2,0.3-106.5,21.6-147.7,53.4c41.5,38.5,69.6,88.5,74.3,138.7
+					c7,73.4-37,135.9-98.3,191.2c39.8,45,95.2,89.1,164,129.9c2.8-1.8,4.5-2.3,7.7-4.5c57.4-39.1,119.4-81.3,166.7-128.8
+					c-60.2-63-90-128.1-83.7-187.9c4.9-46,31.9-95.6,72.8-134.9C778.1,104.4,723.5,81.8,666.3,81.8 M657.5,595l-1.1,0.7l2.8,0.4
+					L657.5,595"/>
+				<path class="st21" d="M348.5,65.6h-1.1C220.6,66.3,114,177.9,103.8,273.9c-10.4,98.1,76.7,210.7,235.8,305
+					c2.9-1.8,4.5-2.3,7.7-4.5c49.4-33.6,102.3-69.6,146.2-109.2c-52.3-59-77.8-119.4-71.9-175.1c5.8-54.2,42.3-113.4,95.8-154.8
+					C472.7,93.7,412.2,65.7,348.5,65.6 M339.7,578.9c-0.3,0.2-0.7,0.4-1.1,0.7l2.9,0.4L339.7,578.9"/>
+				<path class="st22" d="M517.5,135.2C464,176.6,427.4,235.8,421.7,290c-5.9,55.7,19.6,116.1,71.9,175.1
+					c61.3-55.3,105.3-117.9,98.3-191.2C587.1,223.8,559,173.7,517.5,135.2"/>
+				<path class="st23" d="M992.9,65.6h-1.1C925.8,66,865.3,96.4,821,139c49.3,39.7,83.3,95.4,88.7,151
+					c6.2,64.9-27.5,121.3-77.7,171.7c38.7,40.5,89.9,80.2,152.2,117.1c2.8-1.8,4.5-2.3,7.7-4.5c118.4-80.6,256.5-174.5,244.5-300.5
+					C1226.3,169.6,1115.6,65.6,992.9,65.6 M984.1,578.9l-1.1,0.7l2.8,0.4L984.1,578.9"/>
+				<path class="st24" d="M821,139c-40.8,39.3-67.9,88.9-72.8,134.9c-6.3,59.8,23.5,124.8,83.7,187.9
+					c50.3-50.5,83.9-106.9,77.7-171.7C904.3,234.3,870.3,178.7,821,139"/>
+			</g>
+		</g>
+	</g>
+</g>
+<g id="Layer_1_1_">
+	<path class="st25" d="M164.4,648.2l22.1,7.3c1.9,0.6,3,2.7,2.4,4.7l-7.3,22.1"/>
+	<path class="st25" d="M540.6,394.5l22.6-5.7c2-0.5,4,0.7,4.5,2.7l5.7,22.6"/>
+	<path class="st25" d="M17.5,710.5c78.6-16.9,199.3-52.6,325-135c124-81.3,268.6-176,256-303c-10.4-105.5-127-210.6-256-210
+		c-132.7,0.7-238.5,114.1-255,210c-29,169,291.3,347.2,395,392.4c6,2.6,8,1.6,13.8-0.6c64.5-24.6,126-48.2,171.2-77.8
+		c124-81.3,268.6-176,256-303c-10.4-105.5-127-210.6-256-210c-132.7,0.7-244.3,113.2-255,210c-14.1,127.9,130.7,275.2,399.9,380.4
+		c1.6,0.6,3.3,1.1,5,1.3c2.2,0.3,4.3,0,6.3-0.8c17.2-7.1,112.4-47.2,166.8-82.9c124-81.3,268.6-176,256-303
+		c-10.4-105.5-127-210.6-256-210c-132.7,0.7-244.3,113.2-255,210c-16.7,151.4,205.6,336.8,571,438"/>
+	<path class="st25" d="M1165.6,424.7l23.2-1.6c2-0.2,3.8,1.3,4,3.4c0,0,0,0,0,0.1l1.6,23.2"/>
+	<path class="st25" d="M865.2,401.4l22.9-4.2c2-0.4,3.9,1,4.3,3l0,0l4.2,22.9"/>
+	<path class="st25" d="M1149.3,640.9l3.5,23c0.3,2-1.1,3.9-3.1,4.2l0,0l-23,3.5"/>
+	<path class="st25" d="M71.2,253l13.2,19.2c1.1,1.7,3.4,2.1,5.1,1l0,0l19.2-13.2"/>
+	<path class="st25" d="M394.9,257l15.1,17.7c1.3,1.6,3.7,1.7,5.2,0.4l17.7-15.2"/>
+	<path class="st25" d="M718,257.8l15,17.9c1.3,1.6,3.7,1.8,5.2,0.5l17.8-14.9"/>
+	<path class="st25" d="M573.4,614.2l22.1,7.3c1.9,0.6,3,2.7,2.4,4.7l-7.3,22.1"/>
+	<path class="st25" d="M406.9,603.3l2.6,23.1c0.2,2-1.2,3.9-3.3,4.1l0,0l-23.1,2.6"/>
+	<path class="st25" d="M897.4,610.2l22.1,7.3c1.9,0.6,3,2.7,2.4,4.7l-7.3,22.1"/>
+	<path class="st25" d="M749.9,614.3l2.6,23.1c0.2,2-1.2,3.9-3.3,4.1l0,0l-23.1,2.6"/>
+</g>
+</svg>
