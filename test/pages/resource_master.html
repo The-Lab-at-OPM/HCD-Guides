@@ -4,36 +4,63 @@ layout: default
 permalink: /all-resources/
 ---
 
-{% for resource in site.tag-library%}
-{% assign rawtags = "" %}
-  {% assign ttags = resource.tags | join:'|' | append:'|' %}
-  {% assign rawtags = rawtags | append:ttags %}
-{% assign rawtags = rawtags | split:'|' | sort %}
-<ul class="site-sidenav usa-sidenav">
-<form class="method-filter">
-  <h5> {{resource.title}} </h5>
+<div class=" grid-container">
+  <div class="grid-row grid-gap">
+    <div class="grid-col-fill">
+      <h3>Filters</h3>
+    <div class=" grid-container">
+      <div class="grid-row grid-gap">
+      {% for resource in site.tag-library%}
+      <form class="method-filter">
 
-  {% assign tags = "" %}
-  {% for tag in rawtags %}
-    {% if tag != "" %}
-      {% if tags == "" %}
-        {% assign tags = tag %}
-        <li class="blog-tag-item" id="{{ tag }}-item">
-          <input type="checkbox" class="filter-checkbox"> <label class="filter-checkbox-label">{{tag}}</label>
-        </li>
-      {% else %}
-        {% unless tags contains tag %}
-        {% assign tags = tags | append:' ' | append:tag %}
-        <li class="blog-tag-item" id="{{ tag }}-item">
-          <input type="checkbox" class="filter-checkbox"> <label class="filter-checkbox-label">{{tag}}</label>
-        <li class="blog-tag-item" id="{{ tag }}-item">
+      <div class="grid-col-auto">
 
-        {% endunless %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
+      {% assign rawtags = "" %}
+        {% assign ttags = resource.tags | join:'|' | append:'|' %}
+        {% assign rawtags = rawtags | append:ttags %}
+      {% assign rawtags = rawtags | split:'|' | sort %}
+        <h5> {{resource.title}} </h5>
 
+        {% assign tags = "" %}
+        {% for tag in rawtags %}
+          {% if tag != "" %}
+            {% if tags == "" %}
+              {% assign tags = tag %}
+                <input type="checkbox" class="filter-checkbox"> <label class="filter-checkbox-label">{{tag}}</label>
+                <br>
+            {% else %}
+              {% unless tags contains tag %}
+              {% assign tags = tags | append:' ' | append:tag %}
+                <input type="checkbox" class="filter-checkbox"> <label class="filter-checkbox-label">{{tag}}</label>
+                <br>
+              {% endunless %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+    </div>
   </form>
-  </ul>
 
-{% endfor %}
+      {% endfor %}
+
+        </div>
+    </div>
+
+    </div>
+    <div class="grid-col-fill">
+      <h3>Results</h3>
+      <div id="method-results">
+        <div class="skills1 method-result">
+          <p> Skill 1</p>
+        </div>
+
+        <div class="data3 method-result" >
+          <p> Data 3</p>
+        </div>
+
+        <div class="scope4 data3 method-result">
+          <p> Scope 4 and Data 3</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
