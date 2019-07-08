@@ -20,14 +20,13 @@
   margin:0.75rem;
 }
 
+.usa-header{
+  background-color: #005ea2;
+}
+
 .method-result{
-  border: 1px solid #dbe7ef;
-  border-radius:5px;
-  padding: 24px;
-  margin-bottom: 1.2em;
-  overflow: auto;
-  background-color: #f7fbfe;
   display: inline-block;
+  margin: 1.5rem;
 }
 .main-content{
   display:inline-block;
@@ -80,4 +79,28 @@ ul.descriptor{
 .hidden {
   display: none!important;
   visibility: hidden!important;
+}
+
+.sticky {
+  position: fixed;
+   top: 0;
+   width: 100%;
+}
+
+.sticky-nav-item{
+  float:left;
+  display: inline;
+  color: #f2f2f2;
+  padding: 14px;
+  text-decoration: none;
+}
+.menu-links a{
+  text-decoration: none;
+}
+
+.menu-links li{
+  list-style-type: none;
+}
+.sticky + .default-container{
+  padding:0.1rem;
 }

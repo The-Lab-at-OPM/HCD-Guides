@@ -1,6 +1,8 @@
 ---
 name: profile
 tags: profile
+layout: resource
+permalink: /method2
 ---
 
-Method 1
+method 2

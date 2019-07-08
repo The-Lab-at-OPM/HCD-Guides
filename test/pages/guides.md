@@ -1,8 +1,7 @@
 ---
-title: The Name of Some Resource
+title: The First Page of the Guide
 layout: resource
-permalink: /some-resource/
-links_to_resource: [/resources/some-resource.txt, /resources/testing/some-other-resource.txt]
-links_to_images: [/resources/testing/Color_Ayula.png]
+permalink: /guide-page-1/
+links_to_images: [/resources/HCW.png]
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

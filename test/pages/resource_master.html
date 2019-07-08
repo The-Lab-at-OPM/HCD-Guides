@@ -46,21 +46,27 @@ permalink: /all-resources/
     </div>
 
     </div>
-    <div class="grid-col-fill">
+    <div class="grid-col-fill" id= "method-results">
       <h3>Results</h3>
-      <div id="method-results">
-        <div class="skills1 method-result">
-          <p> Skill 1</p>
-        </div>
-
-        <div class="data3 method-result" >
-          <p> Data 3</p>
-        </div>
-
-        <div class="scope4 data3 method-result">
-          <p> Scope 4 and Data 3</p>
-        </div>
-      </div>
+      {% for resource in site.resources %}
+        {% assign sanitized_tags = "" %}
+          {% for tag in resource.tags %}
+            {% if sanitized_tags == "" %}
+              {% assign sanitized_tags = sanitized_tags | append:tag  %}
+            {% endif %}
+            {% if sanitized_tags != ""%}
+              {% unless sanitized_tags contains tag %}
+                {% assign sanitized_tags = sanitized_tags | append:' ' | append:tag  %}
+              {% endunless %}
+            {% endif %}
+          {% endfor%}
+                <a href = {{resource.permalink}} class= "method-result {{sanitized_tags}}">
+                <button class="usa-button">
+                  <h5>{{resource.name}} <h5>
+                  <p>{{resource.content}}<p>
+                </button>
+                </a>
+      {% endfor %}
     </div>
   </div>
 </div>
