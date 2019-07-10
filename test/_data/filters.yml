@@ -12,9 +12,9 @@ labels:
 
       - subtitle: Timeline
         subsubfolderitems:
-          - label: Short-Term
-          - label: Medium-Term
-          - label: Long-Term
+          - label: Short Term
+          - label: Medium Term
+          - label: Long Term
 
       - subtitle: Team Size
         subsubfolderitems:

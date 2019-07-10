@@ -12,6 +12,10 @@
     padding-left: 2rem;
     width: 15rem
 }
+.inline{
+  display:inline-block;
+  height:inherit;
+}
 
 .method-filter{
   border: 2px solid
