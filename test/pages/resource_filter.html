@@ -1,47 +1,27 @@
 ---
 title: Resource Cantina
 layout: default
-permalink: /all-resources/
-filter_file: /
+permalink: /resources-filter/
+filter_file: filter-one
 ---
 
 <div class=" grid-container">
   <div class="grid-row grid-gap">
     <div class="grid-col-fill">
       <h3>Filters</h3>
-
     <div class=" grid-container">
       <div class="grid-row grid-gap">
+      <form class="method-filter">
 
-      {% for filter-category in site.data.filters.labels %}
-      <div class=" usa-accordion usa-accordion--bordered">
-
-        <div class="grid-col-auto">
-          <h2 class="usa-accordion__heading">
-            <button class="usa-accordion__button"
-              aria-expanded="false"
-              aria-controls={{filter-category.aria-control}}>
-              {{filter-category.title}}
-            </button>
-          </h2>
-
-          <div id="{{filter-category.aria-control}}" class="usa-accordion__content usa-prose">
-
-            <form >
-                  {% for filter-subcategory in filter-category.subfolderitems%}
-                    <h5> {{filter-subcategory.subtitle}}</h5>
-                    {% for filter in filter-subcategory.subsubfolderitems %}
-                      <input type="checkbox" class="filter-checkbox"> <label class="filter-checkbox-label">{{filter.label}}</label>
-                      <br>
-                    {% endfor %}
-                  {% endfor %}
-            </form>
-          </div>
-        </div>
-      </div>
+      <div class="grid-col-auto">
+        {% for object in site.data.filters[page.filter_file] %}
+          {{object.filter}}
         {% endfor %}
 
-      </div>
+    </div>
+  </form>
+
+        </div>
     </div>
 
     </div>

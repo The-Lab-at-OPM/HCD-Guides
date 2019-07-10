@@ -1,6 +1,6 @@
 ---
 name: profile and synthesis
-tags: profile synthesis
+tags: Project Manager
 layout: resource
 permalink: /method1
 links_to_resource: [/resources/some-resource.txt, /resources/testing/some-other-resource.txt]
