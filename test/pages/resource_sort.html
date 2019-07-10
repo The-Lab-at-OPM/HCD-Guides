@@ -29,9 +29,8 @@ permalink: /sort/
       {% assign ttags = resource.tags | join:'|' | append:'|' %}
       {% assign rawtags = rawtags | append:ttags %}
     {% endfor %}
-    {% assign rawtags = rawtags | split:'|' | sort %}
+    {% assign rawtags = rawtags | split:'|' %}
 
-    {% assign site.tags = "" %}
     {% for tag in rawtags %}
       {% if tag != "" %}
         {% if tags == "" %}

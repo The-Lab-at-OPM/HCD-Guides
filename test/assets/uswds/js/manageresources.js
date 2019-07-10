@@ -20,7 +20,7 @@ function setActiveTag(tag) {
 function showContainer(tags) {
   // loop through all lists and hide them
   var lists = document.getElementById('method-results');
-  var results = lists.getElementsByTagName("div");
+  var results = lists.getElementsByTagName("a");
   var arrayOfTags = tags.split(" ");
 
   if(tags.length == 0){
@@ -82,7 +82,23 @@ function showContainer(tags) {
     showContainer(checkedFilters);
   }
 
+var navbar, sticky;
+
+function stickyNav() {
+
+      // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+      if (window.pageYOffset > sticky) {
+        navbar.classList.add("sticky")
+      } else {
+        navbar.classList.remove("sticky");
+      }
+  }
 
 document.addEventListener("DOMContentLoaded",function(){
   bindListeners();
+  window.addEventListener("scroll",stickyNav);
+  navbar = document.querySelector("#navbar");
+  banner = document.getElementsByClassName("usa-banner")[0];
+  sticky = navbar.offsetTop - banner.offsetHeight;
+
 }, false);
