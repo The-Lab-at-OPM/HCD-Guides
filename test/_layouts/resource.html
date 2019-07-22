@@ -1,6 +1,5 @@
 ---
 ---
-
 <!doctype html>
 <html lang="en">
 {% include head.html %}
@@ -15,11 +14,11 @@
 
       <main id="main-content" class ="main-content test">
         <div class="styleguide-content usa-prose site-prose">
-          <h1 class = "site-page-title "> {{page.title}} </h1>
+          <h1 class = "site-page-title"> {{page.title}} </h1>
 
           <h6 class = "site-page-subtitle"> Description </h6>
-          <p>
-            {{content}}
+          <p class = "description">
+            {{ content }}
           </p>
           <br>
 
@@ -28,7 +27,7 @@
           {% endfor %}
 
           {% for image in page.links_to_images%}
-            <img src={{image}} alt="">
+            <img class = "example" src={{image}} alt="">
           {% endfor %}
         </div>
       </main>

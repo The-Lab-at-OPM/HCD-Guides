@@ -10,72 +10,97 @@
   {% include banner.html%}
   {% include header.html%}
 
-  <div class=" grid-container">
-    <div class="grid-row grid-gap">
-      <div class="grid-col-fill">
-        <h3>Filters</h3>
-      <div class=" grid-container">
-        <div class="grid-row grid-gap">
-        {% for resource in site.tag-library%}
-        <form class="method-filter">
+<div class = "default-container">
+  {% include sidenav.html %}
 
-        <div class="grid-col-auto">
+    <main id="main-content" class ="main-content test">
+      <div class="styleguide-content usa-prose site-prose">
+        <div class=" grid-container">
+          <div class="grid-row grid-gap">
+            <div class="grid-col-fill">
+              <h3>Filters</h3>
 
-        {% assign rawtags = "" %}
-          {% assign ttags = resource.tags | join:'|' | append:'|' %}
-          {% assign rawtags = rawtags | append:ttags %}
-        {% assign rawtags = rawtags | split:'|' | sort %}
-          <h5> {{resource.title}} </h5>
+            <div class=" grid-container">
+              <div class="grid-row grid-gap">
 
-          {% assign tags = "" %}
-          {% for tag in rawtags %}
-            {% if tag != "" %}
-              {% if tags == "" %}
-                {% assign tags = tag %}
-                  <input type="checkbox" class="filter-checkbox"> <label class="filter-checkbox-label">{{tag}}</label>
-                  <br>
-              {% else %}
-                {% unless tags contains tag %}
-                {% assign tags = tags | append:' ' | append:tag %}
-                  <input type="checkbox" class="filter-checkbox"> <label class="filter-checkbox-label">{{tag}}</label>
-                  <br>
-                {% endunless %}
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-      </div>
-    </form>
+              {% for filter-category in site.data.filters.labels %}
+              <div class=" usa-accordion usa-accordion--bordered">
 
-        {% endfor %}
+                <div class="grid-col-auto">
+                  <h2 class="usa-accordion__heading">
+                    <button class="usa-accordion__button"
+                      aria-expanded="false"
+                      aria-controls={{filter-category.aria-control}}>
+                      {{filter-category.title}}
+                    </button>
+                  </h2>
 
+                  <div id="{{filter-category.aria-control}}" class="usa-accordion__content usa-prose">
+
+                    <form >
+                          {% for filter-subcategory in filter-category.subfolderitems%}
+                            <h5> {{filter-subcategory.subtitle}}</h5>
+                            {% for filter in filter-subcategory.subsubfolderitems %}
+                              <input type="checkbox" class="filter-checkbox"> <label class="filter-checkbox-label">{{filter.label}}</label>
+                              <br>
+                            {% endfor %}
+                          {% endfor %}
+                    </form>
+                  </div>
+                </div>
+              </div>
+                {% endfor %}
+
+              </div>
+            </div>
+
+            </div>
+            <div class="grid-col-fill" id= "method-results">
+              <h3>Results</h3>
+              {% for resource in site.resources %}
+                {% assign sanitized_tags = "" %}
+                  {% for tag in resource.tags %}
+                    {% if sanitized_tags == "" %}
+                      {% assign sanitized_tags = sanitized_tags | append:tag  %}
+                    {% endif %}
+                    {% if sanitized_tags != ""%}
+                      {% unless sanitized_tags contains tag %}
+                        {% assign sanitized_tags = sanitized_tags | append:' ' | append:tag  %}
+                      {% endunless %}
+                    {% endif %}
+                  {% endfor%}
+                        <a href = {{resource.permalink}} class= "method-result {{sanitized_tags}}">
+                        <button class="usa-button">
+                          <h5>{{resource.name}} <h5>
+                          <p>{{resource.description}} <p>
+                        </button>
+                        </a>
+              {% endfor %}
+            </div>
           </div>
+        </div>
       </div>
 
+      <div class=" grid-container sort-categories ">
+        <div class="grid-row grid-gap">
+              <div class="grid-col-fill">
+                <button class="usa-button" id = "generate"> Generate my part one methods</button>
+              </div>
+          <div>
       </div>
-      <div class="grid-col-fill" id= "method-results">
-        <h3>Results</h3>
-        {% for resource in site.resources %}
-          {% assign sanitized_tags = "" %}
-            {% for tag in resource.tags %}
-              {% if sanitized_tags == "" %}
-                {% assign sanitized_tags = sanitized_tags | append:tag  %}
-              {% endif %}
-              {% if sanitized_tags != ""%}
-                {% unless sanitized_tags contains tag %}
-                  {% assign sanitized_tags = sanitized_tags | append:' ' | append:tag  %}
-                {% endunless %}
-              {% endif %}
-            {% endfor%}
-                  <a href = {{resource.permalink}} class= "method-result {{sanitized_tags}}">
-                  <button class="usa-button">
-                    <h5>{{resource.name}} <h5>
-                    <p>{{resource.content}}<p>
-                  </button>
-                  </a>
-        {% endfor %}
+        </div>
       </div>
-    </div>
-  </div>
+
+      <div id = "destination">
+        {{content}}
+      </div>
+
+    </main>
+</div>
+  {% include footer.html%}
+  <script src="{{ "/assets/uswds/js/uswds.min.js" | relative_url }}">
+
+  </script>
 
 </body>
 </html>
