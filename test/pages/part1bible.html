@@ -3,6 +3,10 @@ layout: default
 permalink: /part-one-result
 ---
 
-<div id="destination">
-
+<div id = "destination">
+  {% for resource in site.resources %}
+    <h3 class = "site-page-title" id ="{{resource.title}}-title"> {{resource.title}} </h3>
+    <p id="{{resource.title}}-description" class="description"><p>
+    <img id="{{resource.title}}-image" src={{image}} alt="">
+  {% endfor %}
 </div>

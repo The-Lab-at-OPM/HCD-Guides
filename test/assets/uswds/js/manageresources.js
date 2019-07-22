@@ -20,110 +20,155 @@ function setActiveTag(tag) {
 
 function generateMaster(){
   var lists = document.getElementById('method-results');
-  var results = lists.getElementsByTagName("a");
-  var filteredMethods = [];
-  for(var i=0; i<results.length; i++){
-    const style = getComputedStyle(results[i])
-    if(style.display == 'inline-block' ||   results[i].style.display == 'inline-block'){
-      filteredMethods.push(results[i].getAttribute("href"));
+  if(lists !=null){
+    var results = lists.getElementsByTagName("a");
+    var filteredMethods = [];
+    for(var i=0; i<results.length; i++){
+      const style = getComputedStyle(results[i])
+      if(style.display == 'inline-block' ||   results[i].style.display == 'inline-block'){
+        filteredMethods.push(results[i].getAttribute("href"));
+      }
     }
-  }
 
-  var destination = document.getElementById("destination")
-  fetch("/matrix").then(function(response){
-    return response.text();
-  }).then(function(text){
-      let cleanText = sanitizeFetch(text);
-      destination.textContent = cleanText[1] + cleanText[0];
+  for(var i=0;i<filteredMethods.length;i++){
+    let curMethod = filteredMethods[i].slice(1);
+
+    fetch(filteredMethods[i]).then(function(response){
+      return response.text();
+    }).then(function(info){
+      let cleanedText = sanitizeFetch(info);
+      let arrayString =JSON.stringify(cleanedText);
+      localStorage.setItem(cleanedText[1], arrayString);
+      window.location.assign("/part-one-result");
+      return cleanedText
     })
+  }
 }
 
+
+}
+
+//TODO make handle multiple instances of the same thing
 function sanitizeFetch(string){
   let methodMetadata = [];
 
-  let descRegex = /<p\s*class\s*=\s*"description"\s*>([^>]+?)<\/p>/g
-  let description = descRegex.exec(string)
-  let noFrontTag = description.replace(/<p[^>]*>/,"");
-  let withoutTags = noFrontTag.replace(/<\/p\s*>/,"");
-  methodMetadata.push(description[0]);
+  let descRegex = /<p\s*class\s*=\s*"description"\s*>([^>]+?)<\/p>/g;
+  let description = descRegex.exec(string);
+  let descNoFrontTag = description[0].replace(/<p[^>]*>/,"");
+  let descWithoutTags = descNoFrontTag.replace(/<\/p\s*>/,"");
+  methodMetadata.push(stripWhitespace(descWithoutTags));
 
-  let titleRegex = /<h1\s*class\s*=\s*"site-page-title"\s*>([^>]+?)<\/h1>/g
-  let title = titleRegex.exec(string).map(function(string){
-    return string.replace(/<h1[^>]*>/,"").replace(/<\/h1\s*>/,"");
-  });
-  methodMetadata.push(title[0]);
+  let titleRegex = /<h1\s*class\s*=\s*"site-page-title"\s*>([^>]+?)<\/h1>/g;
+  let title = titleRegex.exec(string);
+  let titleNoFrontTag = title[0].replace(/<h1[^>]*>/,"");
+  let titleWithoutTags = titleNoFrontTag.replace(/<\/h1\s*>/,"");
+  methodMetadata.push(stripWhitespace(titleWithoutTags));
 
-  let imgRegex = /<img\s*class\s*=\s*"example"\s*>([^>]+?)<\/img>/g;
-
+  let imgSrcRegex = /<img\s*class\s*=\s*"example"\s*[^>]([^>]+?)>/g;
+  let srcRegex = /src="([^">]+)/;
+  let exampleTag = imgSrcRegex.exec(string);
+  let exampleSrc = exampleTag[0].split(/src="([^">]+)/);
+  methodMetadata.push(stripWhitespace(exampleSrc[1]));
 
   return methodMetadata;
 }
 
-function showContainer(tags) {
-  // loop through all lists and hide them
-  var lists = document.getElementById('method-results');
-  var results = lists.getElementsByTagName("a");
-  var arrayOfTags = tags.split(" ");
-
-  if(tags.length == 0){
-      for(var i=0; i < results.length; i++) {
-        results[i].style.display = 'inline-block';
-        results[i].style.visibility = 'visible';
-
-  }
+function stripWhitespace(str) {
+    return str.replace(/^\s+|\s+$/g, '');
 }
-  else{
-    //loop through and hide all methods
-    for(var i=0; i < results.length; i++) {
-      results[i].style.display = 'none';
-      results[i].style.visibility = 'hidden';
-    }
 
-    //unhide methods based on selected filter(s)
-    for(var i=0; i < results.length; i++) {
-      var counter = 0;
-      for(var j=0; j<arrayOfTags.length;j++)
-        if(results[i].className.includes(arrayOfTags[j])){
-          counter ++;
-        }
+function showContainer(tags) {
+//   // loop through all lists and hide them
+  var lists = document.getElementById('method-results');
+  if(lists !=null){
 
-      if(counter == arrayOfTags.length){
+    var results = lists.getElementsByTagName("a");
+    var arrayOfTags = tags.split(" ");
+
+    if(tags.length == 0){
+        for(var i=0; i < results.length; i++) {
           results[i].style.display = 'inline-block';
           results[i].style.visibility = 'visible';
-        }
-      else{
-          results[i].style.display = 'none';
-          results[i].style.visibility = 'hidden';
-        }
+
+    }
+  }
+    else{
+      //loop through and hide all methods
+      for(var i=0; i < results.length; i++) {
+        results[i].style.display = 'none';
+        results[i].style.visibility = 'hidden';
       }
 
+      //unhide methods based on selected filter(s)
+      for(var i=0; i < results.length; i++) {
+        var counter = 0;
+        for(var j=0; j<arrayOfTags.length;j++)
+          if(results[i].className.includes(arrayOfTags[j])){
+            counter ++;
+          }
+
+        if(counter == arrayOfTags.length){
+            results[i].style.display = 'inline-block';
+            results[i].style.visibility = 'visible';
+          }
+        else{
+            results[i].style.display = 'none';
+            results[i].style.visibility = 'hidden';
+          }
+        }
+
+    }
   }
 
   }
 
-  function bindListeners(){
-    let filters = document.getElementsByClassName("filter-checkbox");
+function bindListeners(){
+  let filters = document.getElementsByClassName("filter-checkbox");
+  if(filters != null){
     for(let i=0; i<filters.length ; i++){
       filters[i].addEventListener("click",filterTemplates,false);
     }
-
-    let tags
-    let generate = document.getElementById("generate")
-    if(generate != null){
-      generate.addEventListener("click",generateMaster,false)
-    }
   }
+
+  let generate = document.getElementById("generate")
+  if(generate != null){
+    generate.addEventListener("click",generateMaster,false)
+  }
+
+  let destination = document.getElementById("destination")
+  if (destination!= null){
+    let methods = document.getElementsByClassName("site-page-title");
+    for(var i =0; i<methods.length;i++){
+        let nameOfMethod = methods[i].id.slice(0,methods[i].id.length-6);
+        let info = localStorage.getItem(nameOfMethod);
+        let infoArray = JSON.parse(info);
+        let curMethod = infoArray[1];
+
+        var title = document.getElementById(curMethod+"-title");
+        var description = document.getElementById(curMethod+"-description");
+        var image = document.getElementById(curMethod+"-image");
+
+        description.innerHTML = infoArray[0];
+        title.innerHTML = infoArray[1];
+        image.src = infoArray[2];
+      }
+  }
+}
 
 function checkFromLocalStore(){
   let filters = document.getElementsByClassName("filter-checkbox");
   let filterNames = document.getElementsByClassName("filter-checkbox-label");
+  let checkedFilters = "" ;
 
   for(var i=0; i < filters.length; i++) {
     let isChecked = localStorage.getItem(filterNames[i].innerHTML);
     if(isChecked == "true"){
+      checkedFilters = checkedFilters +' '+ filterNames[i].innerHTML;
       filters[i].checked = true;
     }
   }
+  showContainer(checkedFilters);
+
 }
 function prepLocalStore(){
   alert("Prepping Local Store");
@@ -142,11 +187,9 @@ function prepLocalStore(){
         if(filters[i].checked == true){
           checkedFilters = checkedFilters +' '+ filterNames[i].innerHTML;
           localStorage.setItem(filterNames[i].innerHTML,"true");
-          console.log(localStorage.getItem("Project Manager"));
         }
         else{
           localStorage.setItem(filterNames[i].innerHTML,"false");
-          console.log(localStorage.getItem("Project Manager"));
 
         }
 
@@ -181,7 +224,6 @@ document.addEventListener("DOMContentLoaded",function(){
     }
     else{
       //handle checking of filters based on previous entries
-      console.log( "From Dom " + localStorage.getItem("Project Manager"));
       checkFromLocalStore();
     }
   } else {
