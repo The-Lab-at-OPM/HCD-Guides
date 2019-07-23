@@ -1,4 +1,4 @@
 ---
-permalink: /test/
+permalink: /test
 ---
 hi

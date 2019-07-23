@@ -69,12 +69,14 @@
                       {% endunless %}
                     {% endif %}
                   {% endfor%}
-                        <a href = {{resource.permalink}} class= "method-result {{sanitized_tags}}">
-                        <button class="usa-button">
-                          <h5>{{resource.name}} <h5>
-                          <p>{{resource.description}} <p>
-                        </button>
-                        </a>
+                  <div id = "{{resource.title}}">
+                    <a href = {{resource.permalink}} class= "method-result {{sanitized_tags}}">
+                    <button class="usa-button">
+                      <h5>{{resource.name}} <h5>
+                      <p>{{resource.description}} <p>
+                    </button>
+                    </a>
+                  </div>
               {% endfor %}
             </div>
           </div>
