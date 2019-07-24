@@ -1,0 +1,4 @@
+---
+permalink: /test
+---
+hi

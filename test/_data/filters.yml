@@ -33,32 +33,32 @@ labels:
 
       - subtitle: Writing
         subsubfolderitems:
-          - label: Article Style
-          - label: White Paper Style
-          - label: Technical
-          - label: Communications
+          - label: Article Style (Int)
+          - label: White Paper Style (Int)
+          - label: Technical (Int)
+          - label: Communications (Int)
 
       - subtitle: Visual Design
         subsubfolderitems:
-          - label: Illustration
-          - label: Data Visualization
-          - label: Layout
-          - label: Communications
+          - label: Illustration (Int)
+          - label: Data Visualization (Int)
+          - label: Layout (Int)
+          - label: Communications (Int)
 
       - subtitle: Programming
         subsubfolderitems:
-          - label: Frontend
-          - label: Backend
-          - label: Database
+          - label: Frontend (Int)
+          - label: Backend (Int)
+          - label: Database (Int)
 
       - subtitle: Access to Tools
         subsubfolderitems:
-          - label: Pen + Paper
-          - label: Microsoft Office
-          - label: Survey Software
-          - label: Visual Design Software
-          - label: Off-the-Shelf
-          - label: Customizable
+          - label: Pen + Paper (Int)
+          - label: Microsoft Office (Int)
+          - label: Survey Software (Int)
+          - label: Visual Design Software (Int)
+          - label: Off-the-Shelf (Int)
+          - label: Customizable (Int)
 
 
   - title: Skills Partnership
@@ -67,32 +67,32 @@ labels:
 
     - subtitle: Writing
       subsubfolderitems:
-        - label: Article Style
-        - label: White Paper Style
-        - label: Technical
-        - label: Communications
+        - label: Article Style (Ext)
+        - label: White Paper Style (Ext)
+        - label: Technical (Ext)
+        - label: Communications (Ext)
 
     - subtitle: Visual Design
       subsubfolderitems:
-        - label: Illustration
-        - label: Data Visualization
-        - label: Layout
-        - label: Communications
+        - label: Illustration (Ext)
+        - label: Data Visualization (Ext)
+        - label: Layout (Ext)
+        - label: Communications (Ext)
 
     - subtitle: Programming
       subsubfolderitems:
-        - label: Frontend
-        - label: Backend
-        - label: Database
+        - label: Frontend (Ext)
+        - label: Backend (Ext)
+        - label: Database (Ext)
 
     - subtitle: Access to Tools
       subsubfolderitems:
-        - label: Pen + Paper
-        - label: Microsoft Office
-        - label: Survey Software
-        - label: Visual Design Software
-        - label: Off-the-Shelf
-        - label: Customizable
+        - label: Pen + Paper (Ext)
+        - label: Microsoft Office (Ext)
+        - label: Survey Software (Ext)
+        - label: Visual Design Software (Ext)
+        - label: Off-the-Shelf (Ext)
+        - label: Customizable (Ext)
 
   - title: Data
     aria-control: d
