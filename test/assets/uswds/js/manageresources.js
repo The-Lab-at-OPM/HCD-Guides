@@ -38,7 +38,8 @@ function generateMaster(){
       let cleanedText = sanitizeFetch(info);
       let arrayString =JSON.stringify(cleanedText);
       localStorage.setItem(cleanedText[1], arrayString);
-      window.location.assign("/part-one-result");
+      let destination = document.getElementsByClassName("generate")[0].id;
+      window.location.assign(destination);
       return cleanedText
     })
     .catch(function(error){
@@ -171,15 +172,16 @@ function preparePageOnLoad(){
     }
   }
 
-  let generate = document.getElementById("generate")
-  if(generate != null){
-    generate.addEventListener("click",generateMaster,false)
+  let generate = document.getElementsByClassName("generate")
+  if(generate.length !=0 && generate != null){
+    generate[0].addEventListener("click",generateMaster,false)
   }
 
   let destination = document.getElementById("destination")
   if (destination!= null){
     populateMethodsCompendium();
   }
+
 }
 //populate methods compendium based on filtered methods
 function populateMethodsCompendium(){
@@ -226,7 +228,6 @@ function checkFromLocalStore(){
 }
 //prep localstore variables if the user is accessing the page for the first time
 function prepLocalStore(){
-  alert("Prepping Local Store");
   let filters = document.getElementsByClassName("filter-checkbox");
   let filterNames = document.getElementsByClassName("filter-checkbox-label");
   for(var i = 0; i < filters.length; i++){
@@ -267,13 +268,13 @@ function stickyNav() {
   }
 
 document.addEventListener("DOMContentLoaded",function(){
-  bindListeners();
+  preparePageOnLoad();
   window.addEventListener("scroll",stickyNav);
   //bind navbar to the top of the page
   navbar = document.querySelector("#navbar");
   banner = document.getElementsByClassName("usa-banner")[0];
   sticky = navbar.offsetTop - banner.offsetHeight;
-  //handle local storage page preparation 
+  //handle local storage page preparation
   if (typeof(Storage) !== "undefined") {
     if(localStorage.getItem("setBefore") == null){
       localStorage.setItem("setBefore", "true");
