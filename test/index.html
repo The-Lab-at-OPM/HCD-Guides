@@ -1,36 +1,139 @@
 ---
 title: Landing Page
-layout: default
 ---
-<!-- TODO: Uncheck selected principle on sidenav -->
-<h1 class = "site-page-title "> Welcome to the Ops Guide!</h1>
 
-<h3 id="purpose">Purpose of This Guide</h3>
 
-<ul class="usa-content-list descriptor">
-  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </li>
-</ul>
+<!doctype html>
+<html lang="en">
+{% include head.html %}
 
-<h3 id="how-to">How to Use This Guide</h3>
-<ul class="usa-content-list descriptor">
-  <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </li>
-</ul>
+<body>
 
-<div class=" grid-container sort-categories ">
-  <div class="grid-row grid-gap">
-        <div class="grid-col-fill">
-          <a href="/part-one-purpose">
-            <button class="usa-button sort-category"> Get started</button>
-          </a>
+  {% include banner.html%}
+  {% include header.html%}
+  <div class="guides-wrapper">
+    <div class="usa-prose site-prose guides-welcome">
+      <div class="grid-row grid-gap-5">
+        <div class = "guides-welcome-intro">
+          <h1 class = "site-page-title "> Welcome to the Operations Guide!</h1>
+          <p class="read-estimation"> 3 minute read </p>
+          <p>
+            This guide is an introduction to the "making" + "testing" part of design.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
         </div>
-        <div class="grid-col-fill">
-          <a href="/process">
-            <button class="usa-button sort-category">Visualize the entire process</button>
-          </a>
+
+        <div class = "guides-welcome-pagenav">
+          <p class="basics-title"> Print guide </p> <img class = "icon" src="/assets/img/close.svg"></img>
+
+          <h5>On this page</h5>
+          <ul class = "welcome-index">
+            <li> <a href="#done-so-far"> What should you have done so far</a> </li>
+            <li> <a href="#expect-in-design-phase">What to Expect in the Design Phase</a> </li>
+            <li> <a href="#note-on-timeline">A note on timeline</a></li>
+          </ul>
+
+          <h5>Know the basics</h5>
+          <ul class = "welcome-index">
+
+            <div class="basics-link">
+              <li class="basics-title">Human Centered Design</li><img class= "icon" src="/assets/img/arrow-right.svg"></img>
+              <hr>
+            </div>
+            <div class="basics-link">
+              <li class="basics-title">Design in Government</li><img class = "icon" src="/assets/img/arrow-right.svg"></img>
+              <hr>
+            </div>
+
+          </ul>
         </div>
-    <div>
-</div>
+      </div>
+    </div>
   </div>
-</div>
+
+  <div class = "default-container">
+    <div class = "top-sidenav">
+    {% include sidenav.html %}
+    </div>
+    <main id="main-content" class = "main-content">
+
+      <div class="styleguide-content usa-prose site-prose">
+        <div id="done-so-far" class = "guides-welcome-content">
+          <h2>What you should have done so far</h2>
+          <div class = "grid-container">
+            <div class="prev-step-container">
+              <div class="snippet">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit,   et dolore magna aliqua. sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit,   et dolore magna aliqua. sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                <hr>
+              </div>
+              <div class="snippet">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, et dolore magna aliqua. sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <hr>
+              </div>
+              <div class="snippet">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. incididunt ut labore et dolore</p>
+                <hr>
+              </div>
+              <div class="snippet">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  et dolore </p>
+                <hr>
+              </div>
+              <div class="snippet">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. incididunt ut labore et dolore magna aliqua.</p>
+                <hr>
+              </div>
+              <div class="snippet">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  et dolore </p>
+                <hr>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div id="expect-in-design-phase" class = "guides-welcome-content">
+          <h2 >What to expect in the Operations Phase</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </div>
+
+        <div  id="note-on-timeline" class = "guides-welcome-content">
+          <h2>A note on timeline</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </div>
+
+        <div class=" grid-container">
+          <div class="grid-row progress-buttons">
+            <div class="grid-col-5">
+              <a href="/process">
+                <button class="usa-button sort-category">Visualize the entire process</button>
+              </a>
+            </div>
+            <div class="grid-col-2">
+            </div>
+            <div class="grid-col-5 ">
+              <a href="/accessibility">
+                <button class="usa-button sort-category"> Get started</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </main>
+
+      <div class = "bottom-sidenav">
+      {% include sidenav.html %}
+      </div>
+    </div>
+    {% include footer.html%}
+
+    <script src="{{ "/assets/uswds/js/uswds.min.js" | relative_url }}"></script>
+  </body>
+  </html>

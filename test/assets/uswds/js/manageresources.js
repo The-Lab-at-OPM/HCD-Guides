@@ -3,7 +3,34 @@
 /*
 Updates the links in the sidebar nav according to which one is currently seleted
 */
-function setActiveTag(tag) {
+function setActiveSidebar(){
+  var sideNavs = document.getElementsByClassName("usa-sidenav__item")
+  let selection = window.location.pathname;
+  for(var i =0; i<sideNavs.length; i++){
+    let links = sideNavs[i].getElementsByTagName("a");
+    let subLists = sideNavs[i].getElementsByTagName("ul");
+    for(var j = 0; j<links.length; j++){
+      if(links[j].getAttribute("href") == selection){
+        links[j].className = "usa-sidenav__item usa-current"
+      }
+      else{
+        links[j].className = "usa-sidenav__item"
+      }
+    }
+  }
+
+}
+
+
+
+function animateAccordion(acc){
+  this.classList.toggle("active");
+  var panel = this.nextElementSibling;
+  if (panel.style.maxHeight){
+    panel.style.maxHeight = null;
+  } else {
+    panel.style.maxHeight = panel.scrollHeight + "px";
+  }
 }
 
 /*
@@ -11,15 +38,15 @@ Takes filtered methods and populates them into section methods reference books
 */
 function generateMaster(){
   var lists = document.getElementById('method-results');
-//removes all methods from localStorage
+  //removes all methods from localStorage
   if(lists !=null){
     var results = lists.getElementsByTagName("div");
     var allMethods = []
     for(var i=0; i<results.length; i++){
-        let nameOfMethod = results[i].id;
-        localStorage.removeItem(nameOfMethod)
+      let nameOfMethod = results[i].id;
+      localStorage.removeItem(nameOfMethod)
     }
-//gathers methods that are selected by filtering
+    //gathers methods that are selected by filtering
     var filteredMethods = [];
     var links = lists.getElementsByTagName("a");
     for(var i=0; i<links.length; i++){
@@ -28,25 +55,25 @@ function generateMaster(){
         filteredMethods.push(links[i].getAttribute("href"));
       }
     }
-//populates selected methods into appropriate methods reference section
-  for(var i=0;i<filteredMethods.length;i++){
-    let curMethod = filteredMethods[i].slice(1);
+    //populates selected methods into appropriate methods reference section
+    for(var i=0;i<filteredMethods.length;i++){
+      let curMethod = filteredMethods[i].slice(1);
 
-    fetch(filteredMethods[i]).then(function(response){
-      return response.text();
-    }).then(function(info){
-      let cleanedText = sanitizeFetch(info);
-      let arrayString =JSON.stringify(cleanedText);
-      localStorage.setItem(cleanedText[1], arrayString);
-      let destination = document.getElementsByClassName("generate")[0].id;
-      window.location.assign(destination);
-      return cleanedText
-    })
-    .catch(function(error){
-      console.log(error);
-    })
+      fetch(filteredMethods[i]).then(function(response){
+        return response.text();
+      }).then(function(info){
+        let cleanedText = sanitizeFetch(info);
+        let arrayString =JSON.stringify(cleanedText);
+        localStorage.setItem(cleanedText[1], arrayString);
+        let destination = document.getElementsByClassName("generate")[0].id;
+        window.location.assign(destination);
+        return cleanedText
+      })
+      .catch(function(error){
+        console.log(error);
+      })
+    }
   }
-}
 
 }
 // hides unselected methods from methods reference sections
@@ -83,7 +110,7 @@ function sanitizeFetch(string){
     methodMetadata.push(stripWhitespace(descWithoutTags));
   }
   else{
-      methodMetadata.push("Description unavailable.");
+    methodMetadata.push("Description unavailable.");
   }
 
   let titleRegex = /<h1\s*class\s*=\s*"site-page-title"\s*>([^>]+?)<\/h1>/g;
@@ -116,11 +143,11 @@ function sanitizeFetch(string){
 }
 //strip whitespace from string
 function stripWhitespace(str) {
-    return str.replace(/^\s+|\s+$/g, '');
+  return str.replace(/^\s+|\s+$/g, '');
 }
 //unhide selected containers after filtering
 function showContainer(tags) {
-//   // loop through all lists and hide them
+  //   // loop through all lists and hide them
   var lists = document.getElementById('method-results');
   if(lists !=null){
 
@@ -128,12 +155,12 @@ function showContainer(tags) {
     var arrayOfTags = tags.split(" ");
 
     if(tags.length == 0){
-        for(var i=0; i < results.length; i++) {
-          results[i].style.display = 'inline-block';
-          results[i].style.visibility = 'visible';
+      for(var i=0; i < results.length; i++) {
+        results[i].style.display = 'inline-block';
+        results[i].style.visibility = 'visible';
 
+      }
     }
-  }
     else{
       //loop through and hide all methods
       for(var i=0; i < results.length; i++) {
@@ -145,26 +172,41 @@ function showContainer(tags) {
       for(var i=0; i < results.length; i++) {
         var counter = 0;
         for(var j=0; j<arrayOfTags.length;j++)
-          if(results[i].className.includes(arrayOfTags[j])){
-            counter ++;
-          }
+        if(results[i].className.includes(arrayOfTags[j])){
+          counter ++;
+        }
 
         if(counter == arrayOfTags.length){
-            results[i].style.display = 'inline-block';
-            results[i].style.visibility = 'visible';
-          }
-        else{
-            results[i].style.display = 'none';
-            results[i].style.visibility = 'hidden';
-          }
+          results[i].style.display = 'inline-block';
+          results[i].style.visibility = 'visible';
         }
+        else{
+          results[i].style.display = 'none';
+          results[i].style.visibility = 'hidden';
+        }
+      }
 
     }
   }
 
-  }
+}
 //add requiste listeners to page and populate methods based on localStorage data
 function preparePageOnLoad(){
+  let sideNav = document.getElementsByClassName("usa-sidenav__item");
+  if(sideNav != null){
+    setActiveSidebar()
+    // for(var i =0; i<sideNav.length;i++){
+    //   let curSideNav = sideNav[i];
+    //   sideNav[i].addEventListener("click",setActiveSidebar,true);
+    // }
+  }
+  // let acc = document.getElementsByClassName("usa-accordion");
+  // if(acc != null){
+  //   for (var i = 0; i < acc.length; i++) {
+  //     acc[i].addEventListener("click", animateAccordion, false);
+  // }
+// }
+
   let filters = document.getElementsByClassName("filter-checkbox");
   if(filters != null){
     for(let i=0; i<filters.length ; i++){
@@ -187,26 +229,26 @@ function preparePageOnLoad(){
 function populateMethodsCompendium(){
   let methods = document.getElementsByClassName("site-page-title");
   for(var i =0; i<methods.length;i++){
-      let nameOfMethod = methods[i].id.slice(0,methods[i].id.length-6);
-      let info = localStorage.getItem(nameOfMethod);
-      if( info !=null){
-        let infoArray = JSON.parse(info);
-        let curMethod = infoArray[1];
+    let nameOfMethod = methods[i].id.slice(0,methods[i].id.length-6);
+    let info = localStorage.getItem(nameOfMethod);
+    if( info !=null){
+      let infoArray = JSON.parse(info);
+      let curMethod = infoArray[1];
 
-        var title = document.getElementById(curMethod+"-title");
-        var description = document.getElementById(curMethod+"-description");
-        var image = document.getElementById(curMethod+"-image");
+      var title = document.getElementById(curMethod+"-title");
+      var description = document.getElementById(curMethod+"-description");
+      var image = document.getElementById(curMethod+"-image");
 
-        description.innerHTML = infoArray[0];
-        title.innerHTML = infoArray[1];
-        if(infoArray[2].includes("alt")){
-          image.src = "";
-        }
-        else{
-          image.src = infoArray[2];
-          }
+      description.innerHTML = infoArray[0];
+      title.innerHTML = infoArray[1];
+      if(infoArray[2].includes("alt")){
+        image.src = "";
+      }
+      else{
+        image.src = infoArray[2];
       }
     }
+  }
 
   hideUnpopulatedMethods()
 }
@@ -236,44 +278,27 @@ function prepLocalStore(){
 }
 //handle checking of filter checkboxes whenever something is checked
 function filterTemplates(){
-    let filters = document.getElementsByClassName("filter-checkbox");
-    let filterNames = document.getElementsByClassName("filter-checkbox-label");
+  let filters = document.getElementsByClassName("filter-checkbox");
+  let filterNames = document.getElementsByClassName("filter-checkbox-label");
 
-    let checkedFilters = "" ;
-    for(var i = 0; i < filters.length; i++){
-        if(filters[i].checked == true){
-          checkedFilters = checkedFilters +' '+ filterNames[i].innerHTML;
-          localStorage.setItem(filterNames[i].innerHTML,"true");
-        }
-        else{
-          localStorage.setItem(filterNames[i].innerHTML,"false");
-
-        }
+  let checkedFilters = "" ;
+  for(var i = 0; i < filters.length; i++){
+    if(filters[i].checked == true){
+      checkedFilters = checkedFilters +' '+ filterNames[i].innerHTML;
+      localStorage.setItem(filterNames[i].innerHTML,"true");
+    }
+    else{
+      localStorage.setItem(filterNames[i].innerHTML,"false");
 
     }
-    setActiveTag(checkedFilters);
-    showContainer(checkedFilters);
+
   }
+  showContainer(checkedFilters);
+}
 
-var navbar, sticky;
-
-function stickyNav() {
-
-      // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-      if (window.pageYOffset > sticky) {
-        navbar.classList.add("sticky")
-      } else {
-        navbar.classList.remove("sticky");
-      }
-  }
 
 document.addEventListener("DOMContentLoaded",function(){
   preparePageOnLoad();
-  window.addEventListener("scroll",stickyNav);
-  //bind navbar to the top of the page
-  navbar = document.querySelector("#navbar");
-  banner = document.getElementsByClassName("usa-banner")[0];
-  sticky = navbar.offsetTop - banner.offsetHeight;
   //handle local storage page preparation
   if (typeof(Storage) !== "undefined") {
     if(localStorage.getItem("setBefore") == null){
