@@ -16,71 +16,71 @@
     <main id="main-content" class ="main-content test">
       <div class="styleguide-content usa-prose site-prose">
         <div class=" grid-container">
-          <div class="grid-row grid-gap">
-            <div class="grid-col-fill">
-              <h3>Filters</h3>
-
-            <div class=" grid-container">
-              <div class="grid-row grid-gap">
+        <h3 id="destination">Filters</h3>
+        <div class="grid-row grid-gap">
 
               {% for filter-category in site.data.filters.labels %}
-              <div class=" usa-accordion usa-accordion--bordered">
+              <div class="grid-col-fill">
+                <div class=" usa-accordion usa-accordion--bordered">
 
-                <div class="grid-col-auto">
-                  <h2 class="usa-accordion__heading">
-                    <button class="usa-accordion__button"
+                  <div class="grid-col-auto">
+                    <h2 class="usa-accordion__heading">
+                      <button class="usa-accordion__button"
                       aria-expanded="false"
                       aria-controls={{filter-category.aria-control}}>
                       {{filter-category.title}}
                     </button>
                   </h2>
 
-                  <div id="{{filter-category.aria-control}}" class="usa-accordion__content usa-prose">
+                  <div id="{{filter-category.aria-control}}" class="usa-accordion__content usa-prose filter-options">
 
                     <form >
-                          {% for filter-subcategory in filter-category.subfolderitems%}
-                            <h5> {{filter-subcategory.subtitle}}</h5>
-                            {% for filter in filter-subcategory.subsubfolderitems %}
-                              <input type="checkbox" class="filter-checkbox"> <label class="filter-checkbox-label">{{filter.label}}</label>
-                              <br>
-                            {% endfor %}
-                          {% endfor %}
+                      {% for filter-subcategory in filter-category.subfolderitems%}
+                      <h5> {{filter-subcategory.subtitle}}</h5>
+                      {% for filter in filter-subcategory.subsubfolderitems %}
+                      <input type="checkbox" class="filter-checkbox"> <label class="filter-checkbox-label">{{filter.label}}</label>
+                      <br>
+                      {% endfor %}
+                      {% endfor %}
                     </form>
                   </div>
                 </div>
+                </div>
               </div>
-                {% endfor %}
-
-              </div>
-            </div>
-
-            </div>
-            <div class="grid-col-fill" id= "method-results">
-              <h3>Results</h3>
-              {% for resource in site.resources %}
-                {% assign sanitized_tags = "" %}
-                  {% for tag in resource.tags %}
-                    {% if sanitized_tags == "" %}
-                      {% assign sanitized_tags = sanitized_tags | append:tag  %}
-                    {% endif %}
-                    {% if sanitized_tags != ""%}
-                      {% unless sanitized_tags contains tag %}
-                        {% assign sanitized_tags = sanitized_tags | append:' ' | append:tag  %}
-                      {% endunless %}
-                    {% endif %}
-                  {% endfor%}
-                  <div id = "{{resource.title}}">
-                    <a href = {{resource.permalink}} class= "method-result {{sanitized_tags}}">
-                    <button class="usa-button">
-                      <h5>{{resource.name}} <h5>
-                      <p>{{resource.description}} <p>
-                    </button>
-                    </a>
-                  </div>
               {% endfor %}
-            </div>
+
           </div>
         </div>
+
+
+        <div class=" grid-container">
+          <h3>Results</h3>
+          <div class="grid-row grid-gap">
+            <div class="grid-col-fill" id= "method-results">
+              {% for resource in site.resources %}
+              {% assign sanitized_tags = "" %}
+              {% for tag in resource.tags %}
+              {% if sanitized_tags == "" %}
+              {% assign sanitized_tags = sanitized_tags | append:tag  %}
+              {% endif %}
+              {% if sanitized_tags != ""%}
+              {% unless sanitized_tags contains tag %}
+              {% assign sanitized_tags = sanitized_tags | append:' ' | append:tag  %}
+              {% endunless %}
+              {% endif %}
+              {% endfor%}
+              <a href = {{resource.permalink}} class= "method-result {{sanitized_tags}}">
+                <button class="usa-button card">
+                  <h5>{{resource.name}} <h5>
+                    <p>{{resource.description}} <p>
+                    </button>
+                  </a>
+                  {% endfor %}
+                </div>
+              </div>
+        </div>
+
+
       </div>
 
       <div class=" grid-container sort-categories ">
@@ -93,6 +93,7 @@
         </div>
       </div>
 
+      {% include progress_buttons.html %}
     </main>
 </div>
   {% include footer.html%}
