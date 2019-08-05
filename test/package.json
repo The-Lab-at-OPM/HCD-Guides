@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "acorn": "^6.0.4",
+    "airtable": "^0.7.0",
     "autoprefixer": "^9.6.1",
     "braces": "^2.3.2",
     "css-mqpacker": "^7.0.0",

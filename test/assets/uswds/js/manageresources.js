@@ -1,5 +1,91 @@
 //TODO dynamic hiding of filters
 
+function getAirtableData(reason, selectedTags, section, id){
+
+  if(selectedTags==undefined){
+    selectedTags = ["all"];
+  }
+  if(section ==undefined){
+    section = -1;
+  }
+  if(id == undefined){
+    id = ["all"];
+  }
+  fetch("https://api.airtable.com/v0/appwodZA5P0LdCMm1/Methods?api_key=keyRLckANzjgwxAqE")
+  .then((resp) => resp.json())
+  .then(data =>{
+    let selectedTagsParam = selectedTags;
+    let sectionParam = section;
+    let idParam = id;
+
+    let methodsToReturn = filterAirtableData(data.records,selectedTagsParam,sectionParam,idParam);
+    return methodsToReturn;
+  })
+  .then(methodsToReturn => {
+    reason(methodsToReturn);
+    return methodsToReturn;
+  })
+  .catch(err => {
+    // Error
+    console.log(err);
+  });
+
+}
+
+function isSmallerArraySubset(smallArray, bigArray){
+  for(var i=0; i<smallArray.length; i++){
+    if(smallArray[i] != bigArray[i]){
+      return false;
+    }
+  }
+  return true;
+}
+
+function filterAirtableData(data,selectedTags,section,ids){
+
+  //filter by id
+  if(ids[0] != "all"){
+    var result = data.filter(function(value){
+      return ids.includes(value.id);
+    })
+    return result
+  }
+
+  //filter by tags
+  // for some reason the Mouse onclick event is getting passed into the function.
+  // The extra if check is a stopgap to prevent this from messing things up
+  if(selectedTags[0] != "all" && selectedTags["type"] == undefined){
+    //sort selected tags
+    var sortedTags = tags.sort();
+
+    //if selected tags is a subarray of the tags of the Entry, add the entry to the return
+    var result = data.filter(function(entry){
+      var sortedEntryTags = [];
+      if(entry.fields["Tags"]){
+        sortedEntryTags = entry.fields["Tags"].sort();
+        return isSmallerArraySubset(sortedTags, sortedEntryTags);
+      }
+      else{
+        return false;
+      }
+    })
+
+    return result;
+  }
+
+  //filter by section. -1 Corresponds to "all sections"
+  if(section != -1){
+
+    var result = data.filter(function(entry){
+      return entry.fields["Section"] == section;
+    })
+
+    return result;
+  }
+
+  return data;
+}
+
 /*
 Updates the links in the sidebar nav according to which one is currently seleted
 */
@@ -21,8 +107,6 @@ function setActiveSidebar(){
 
 }
 
-
-
 function animateAccordion(acc){
   this.classList.toggle("active");
   var panel = this.nextElementSibling;
@@ -31,6 +115,88 @@ function animateAccordion(acc){
   } else {
     panel.style.maxHeight = panel.scrollHeight + "px";
   }
+}
+
+function populateResourcesWrapper(section){
+  function populateResources(data){
+    let methodContainer = document.getElementById("method-results");
+
+    for(let i=0; i<data.length; i++){
+      let method = document.createElement("a");
+      method.href = "";
+      let tags = data[i].fields["Tags"];
+      let methodClassName = "method-result " + tags.join(" ");
+      method.className = methodClassName;
+      method.id = data[i].id;
+
+      let button = document.createElement("button");
+      button.className = "usa-button card";
+
+      let title = document.createElement("h5");
+      title.innerHTML = data[i].fields["Name"];
+      title.className = "title"
+
+      button.appendChild(title);
+      method.appendChild(button);
+      methodContainer.appendChild(method);
+
+    }
+  }
+  getAirtableData(populateResources, undefined,section,undefined);
+
+}
+
+//populate methods compendium based on filtered methods
+function populateMethodsCompendium(data){
+  let toPrint = document.getElementsByClassName('methods-compendium')[0];
+  toPrint.innerHTML = "";
+  for(let i=0; i<data.length; i++){
+    let methodTitleContent = data[i].fields["Name"];
+    let methodDescriptionContent = data[i].fields["Notes"];
+    let methodImageContent = data[i].fields["Attachments"][0]["url"];
+
+    let methodContainer = document.createElement("div");
+    methodContainer.className = "method-container";
+
+    let methodTitle = document.createElement("h3");
+    methodTitle.className = "method-title";
+    methodTitle.innerHTML = methodTitleContent;
+
+    let methodDescription = document.createElement("p");
+    methodDescription.className = "method-description";
+    methodDescription.innerHTML = methodDescriptionContent;
+
+    let methodImage = document.createElement("img");
+    methodImage.className = "method-image";
+    methodImage.src = methodImageContent;
+
+    methodContainer.appendChild(methodTitle);
+    methodContainer.appendChild(methodDescription);
+    methodContainer.appendChild(methodImage);
+
+    toPrint.appendChild(methodContainer);
+  }
+  printElem(toPrint);
+
+
+}
+
+function printElem(elem){
+    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+
+    mywindow.document.write('<html><head><title>' + document.title  + '</title>');
+    mywindow.document.write('</head><body >');
+    mywindow.document.write('<h1>' + document.title  + '</h1>');
+    mywindow.document.write(document.getElementById(elem).innerHTML);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // necessary for IE >= 10
+    mywindow.focus(); // necessary for IE >= 10*/
+
+    mywindow.print();
+    mywindow.close();
+
+    return true;
 }
 
 /*
@@ -48,34 +214,18 @@ function generateMaster(){
     }
     //gathers methods that are selected by filtering
     var filteredMethods = [];
-    var links = lists.getElementsByTagName("a");
+    var links = lists.getElementsByClassName("method-result");
     for(var i=0; i<links.length; i++){
       const style = getComputedStyle(links[i])
       if(style.display == 'inline-block' ||   links[i].style.display == 'inline-block'){
-        filteredMethods.push(links[i].getAttribute("href"));
+        filteredMethods.push(links[i].id);
       }
     }
-    //populates selected methods into appropriate methods reference section
-    for(var i=0;i<filteredMethods.length;i++){
-      let curMethod = filteredMethods[i].slice(1);
-
-      fetch(filteredMethods[i]).then(function(response){
-        return response.text();
-      }).then(function(info){
-        let cleanedText = sanitizeFetch(info);
-        let arrayString =JSON.stringify(cleanedText);
-        localStorage.setItem(cleanedText[1], arrayString);
-        let destination = document.getElementsByClassName("generate")[0].id;
-        window.location.assign(destination);
-        return cleanedText
-      })
-      .catch(function(error){
-        console.log(error);
-      })
-    }
+    getAirtableData(populateMethodsCompendium, undefined, undefined, filteredMethods);
   }
-
 }
+
+
 // hides unselected methods from methods reference sections
 function hideUnpopulatedMethods(){
   let destination = document.getElementById("destination")
@@ -151,7 +301,7 @@ function showContainer(tags) {
   var lists = document.getElementById('method-results');
   if(lists !=null){
 
-    var results = lists.getElementsByTagName("a");
+    var results = document.getElementsByClassName('method-result');
     var arrayOfTags = tags.split(" ");
 
     if(tags.length == 0){
@@ -190,68 +340,7 @@ function showContainer(tags) {
   }
 
 }
-//add requiste listeners to page and populate methods based on localStorage data
-function preparePageOnLoad(){
-  let sideNav = document.getElementsByClassName("usa-sidenav__item");
-  if(sideNav != null){
-    setActiveSidebar()
-    // for(var i =0; i<sideNav.length;i++){
-    //   let curSideNav = sideNav[i];
-    //   sideNav[i].addEventListener("click",setActiveSidebar,true);
-    // }
-  }
-  // let acc = document.getElementsByClassName("usa-accordion");
-  // if(acc != null){
-  //   for (var i = 0; i < acc.length; i++) {
-  //     acc[i].addEventListener("click", animateAccordion, false);
-  // }
-// }
 
-  let filters = document.getElementsByClassName("filter-checkbox");
-  if(filters != null){
-    for(let i=0; i<filters.length ; i++){
-      filters[i].addEventListener("click",filterTemplates,false);
-    }
-  }
-
-  let generate = document.getElementsByClassName("generate")
-  if(generate.length !=0 && generate != null){
-    generate[0].addEventListener("click",generateMaster,false)
-  }
-
-  let destination = document.getElementById("destination")
-  if (destination!= null){
-    populateMethodsCompendium();
-  }
-
-}
-//populate methods compendium based on filtered methods
-function populateMethodsCompendium(){
-  let methods = document.getElementsByClassName("site-page-title");
-  for(var i =0; i<methods.length;i++){
-    let nameOfMethod = methods[i].id.slice(0,methods[i].id.length-6);
-    let info = localStorage.getItem(nameOfMethod);
-    if( info !=null){
-      let infoArray = JSON.parse(info);
-      let curMethod = infoArray[1];
-
-      var title = document.getElementById(curMethod+"-title");
-      var description = document.getElementById(curMethod+"-description");
-      var image = document.getElementById(curMethod+"-image");
-
-      description.innerHTML = infoArray[0];
-      title.innerHTML = infoArray[1];
-      if(infoArray[2].includes("alt")){
-        image.src = "";
-      }
-      else{
-        image.src = infoArray[2];
-      }
-    }
-  }
-
-  hideUnpopulatedMethods()
-}
 //load the checkboxes that should persist over pages
 function checkFromLocalStore(){
   let filters = document.getElementsByClassName("filter-checkbox");
@@ -296,10 +385,41 @@ function filterTemplates(){
   showContainer(checkedFilters);
 }
 
+//add requiste listeners to page and populate methods based on localStorage data
+function preparePageOnLoad(){
+  let airtableButton = document.getElementsByClassName("airtable-retrive")[0];
+  if(airtableButton != null){
+    airtableButton.addEventListener("click", getAirtableData,false);
+  }
 
+  let sectionSelector = document.getElementsByClassName("section-selector")
+  if(sectionSelector != null){
+    let sectionNumber = sectionSelector[0].id;
+    populateResourcesWrapper(sectionNumber);
+  }
+
+  let sideNav = document.getElementsByClassName("usa-sidenav__item");
+  if(sideNav != null){
+    setActiveSidebar()
+  }
+  let filters = document.getElementsByClassName("filter-checkbox");
+  if(filters != null){
+    for(let i=0; i<filters.length ; i++){
+      filters[i].addEventListener("click",filterTemplates,false);
+    }
+  }
+
+  let generate = document.getElementsByClassName("generate")
+  if(generate.length !=0 && generate != null){
+    generate[0].addEventListener("click",generateMaster,false)
+  }
+
+
+}
 document.addEventListener("DOMContentLoaded",function(){
   preparePageOnLoad();
   //handle local storage page preparation
+
   if (typeof(Storage) !== "undefined") {
     if(localStorage.getItem("setBefore") == null){
       localStorage.setItem("setBefore", "true");
