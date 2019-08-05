@@ -1,0 +1,111 @@
+
+
+<div class=" grid-container no-left">
+  <div class="grid-row progress-buttons">
+      <div class="grid-col-fill">
+        <!-- Initialize parent level counter index -->
+        {% assign parent_counter = 0 %}
+        <!--Loop through parent level links in navigation hierarchy starting-->
+        {% for parent in site.data.sidenav.navigation%}
+        <!-- If child level links exist loop through them -->
+        {% if parent.subfolderitems%}
+        <!-- Initialize child level counter index -->
+          {% assign child_counter = 0 %}
+
+            {% for child in parent.subfolderitems %}
+            <!-- If we get a match on the child level -->
+              {% if child.href == page.permalink %}
+              <!-- If it is the first child, set "previous" link to parent -->
+                {% if child_counter == 0%}
+                  {% assign before_link = parent.href %}
+                  {% break %}
+                {% else%}
+                <!-- Otherwise, set it to the previous sibling -->
+                  {% assign child_counter = child_counter| minus: 1 %}
+                  {% assign before_link = parent.subfolderitems[child_counter].href %}
+                  {% break %}
+                {% endif %}
+              {% endif %}
+              <!-- Iterate child counter if no matches -->
+              {% assign child_counter = child_counter| plus: 1 %}
+            {% endfor %}
+        {% endif %}
+
+          {% if parent.href == page.permalink%}
+          <!-- If there is a previous child level link that exists, set "previous" link to that child -->
+            {% assign prev_parent_index = parent_counter | minus: 1 %}
+            {% assign prev_parent = site.data.sidenav.navigation[prev_parent_index] %}
+
+            {% if prev_parent.subfolderitems %}
+              {% assign last_child = prev_parent.subfolderitems.size | minus:1%}
+
+              {% assign before_link = prev_parent.subfolderitems[last_child].href %}
+              <!-- Otherwise, set "previous" link to previous parent -->
+            {% else %}
+              {% assign before_link = site.data.sidenav.navigation[parent_counter].href %}
+              {% break%}
+            {% endif %}
+          {% endif %}
+
+          {% assign parent_counter = parent_counter| plus: 1 %}
+
+        {% endfor %}
+        <a href="{{before_link}}">
+          <button class="usa-button sort-category">Previous</button>
+        </a>
+      </div>
+      <div class="grid-col-1">
+      </div>
+      <div class="grid-col-fill">
+
+        <!-- Initialize parent level counter index -->
+        {% assign parent_counter = 0 %}
+        {% for parent in site.data.sidenav.navigation %}
+          <!-- If child level links exist, loop through them -->
+          {% if parent.subfolderitems%}
+          <!-- Initialize child level counter index -->
+          {% assign child_counter = 0 %}
+
+            {% for child in parent.subfolderitems%}
+              {% if child.href == page.permalink %}
+                <!-- If there exists a next child link, set "next" link to that sibling -->
+                {% assign next_child_counter = child_counter| plus: 1 %}
+
+                {% if parent.subfolderitems[next_child_counter] %}
+                  {% assign after_link = parent.subfolderitems[next_child_counter].href %}
+                  {% break%}
+                {% else %}
+                <!-- Otherwise, set "next" link to next parent -->
+                  {% assign parent_counter = parent_counter| plus: 1 %}
+                  {% assign after_link = site.data.sidenav.navigation[parent_counter].href %}
+                  {% break%}
+                {% endif %}
+              {% endif %}
+              <!-- If no matches, iterate child counter by one -->
+              {% assign child_counter = child_counter| plus: 1 %}
+            {% endfor %}
+          {% endif %}
+
+          <!-- If we get a match on a parent level link, set "next" to first child if it exists -->
+          {% if parent.href == page.permalink %}
+            {% if parent.subfolderitems%}
+              {% assign after_link = parent.subfolderitems[0].href %}
+              {% break%}
+              <!-- Otherwise set "next" to next parent level link -->
+            {% else %}
+              {% assign parent_counter = parent_counter| plus: 1 %}
+              {% assign after_link = site.data.sidenav.navigation[parent_counter].href %}
+              {% break%}
+            {% endif %}
+
+          {% endif %}
+          <!-- If no matches, go on to the next parent link -->
+          {% assign parent_counter = parent_counter| plus: 1 %}
+        {% endfor %}
+
+        <a href="{{after_link}}">
+          <button class="usa-button sort-category"> Next</button>
+        </a>
+      </div>
+    </div>
+  </div>

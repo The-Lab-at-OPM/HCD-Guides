@@ -1,0 +1,66 @@
+expand_nav: true
+
+navigation:
+  - title: Welcome to the Operations Guide
+    aria-control: a
+    href: "/"
+  - title: Accessibility and Inclusive Design
+    aria-control: a-one
+    href: "/accessibility"
+
+
+  - title: Part One
+    aria-control: b
+    href: "/part-one-purpose"
+    subfolderitems:
+
+    - subtitle: Moving Research in Design
+      aria-control: b-one
+      href: "/moving-research-into-design"
+
+    - subtitle: Create Project Level Principles
+      aria-control: b-two
+      href: "/create-project-level-principles"
+
+    - subtitle: Making Round 1
+      aria-control: b-two
+      href: "/part-one-sort"
+
+  - title: Part Two
+    aria-control: c
+    href: "/part-two-purpose"
+    subfolderitems:
+
+      - subtitle: Divergent Thinking
+        aria-control: c-one
+        href: "/divergent-thinking"
+
+      - subtitle: Convergent Thinking
+        aria-control: c-two
+        href: "/convergent-thinking"
+
+      - subtitle: Making Round 2
+        aria-control: c-three
+        href: "/part-two-sort"
+
+
+  - title: Part Three
+    aria-control: d
+    href: "/part-three-purpose"
+    subfolderitems:
+
+      - subtitle: Design Methods Test 1
+        aria-control: d-one
+        href: "/design-methods-test-one"
+
+      - subtitle: Design Methods Test 2
+        aria-control: d-two
+        href: "/design-methods-test-two"
+
+      - subtitle: Design Methods Test 3
+        aria-control: d-three
+        href: "/design-methods-test-three"
+
+  - title: Methods Library Accordion
+    aria-control: d
+    href: /all-resources-accordion
