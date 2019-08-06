@@ -20,7 +20,7 @@ i.e.
 ----------------------------------------
 */
 $left-padding: 4rem;
-//Welcome Page
+// ***************** WELCOME PAGE ***************** //
 .guides-row{
   @include grid-row;
 
@@ -37,6 +37,7 @@ p{
 .guides-wrapper{
   padding-left: 2rem;
   background-color: color('gray-cool-10');
+
 }
 
 .guides-welcome{
@@ -44,10 +45,15 @@ p{
   padding:$left-padding;
   margin:0;
   max-width: 100%;
+
+  @include at-media("desktop"){
+      margin:auto;
+      max-width:64rem;
+  }
 }
 
 .guides-welcome-intro {
-  @include u-width(full);
+  max-width: 64rem;
 
   @include at-media(tablet) {
     @include grid-col;
@@ -71,7 +77,7 @@ p{
 }
 
 .guides-welcome-content{
-  @include u-width(full)
+  max-width: 64rem;
   @include at-media(tablet){
     @include grid-row;
   }
@@ -143,12 +149,13 @@ p{
   }
 }
 .site-sidenav {
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+
   @include at-media(tablet){
     display:block;
     display: block;
     float: left;
-    margin-bottom: 3rem;
-    margin-top: 2rem;
     padding-right: 0;
     padding-left: $left-padding;
     max-width: 15rem;
@@ -164,6 +171,10 @@ p{
 .default-container{
   display:block;
   overflow: auto;
+  @include at-media("desktop"){
+      margin:auto;
+      max-width:64rem;
+  }
 }
 
 .welcome-index{
@@ -196,38 +207,10 @@ p{
   border-bottom:0 !important;
 }
 
-.method-filter{
-  margin:0.75rem;
-}
-
-
-.method-result{
-  display: inline-block;
-  margin: .4rem;
-  width:20vw !important;
-}
-.card{
-  padding: 0.25rem 0.25rem;
-}
-
-
 ul.descriptor{
   list-style-type: none;
   padding-left: 0;
 
-}
-
-.sort-categories{
-  margin: 3em 0;
-  padding-left: 0;
-  padding-right: 0;
-
-}
-.sort-category {
-  background-color: #005ea2;
-  text-align: center;
-  height:100%;
-  width: 100% !important;
 }
 
 .hidden {
@@ -290,17 +273,51 @@ ul.descriptor{
 
 // ***************** METHODS lIBRARY ***************** //
 
-.filter-options{
-  width: 63vw;
-  z-index: 400;
+.usa-accordion__heading{
+  margin-top: 0.25rem!important;
 }
 
+
+.card{
+  width: 7rem!important;
+  height: 7rem;
+
+  @include at-media('tablet') {
+    width:15rem!important;
+    height:15rem;
+  }
+}
+.reset{
+  float: right;
+}
+
+.method-filter{
+  margin:0.75rem;
+}
+
+.method-result{
+  display: inline-block;
+  margin: .4rem;
+}
+
+.sort-categories{
+  margin: 3em 0;
+  padding-left: 0;
+  padding-right: 0;
+
+}
+.sort-category {
+  background-color: #005ea2;
+  text-align: center;
+  height:100%;
+  width: 100% !important;
+}
 
 
 // ***************** PRINT TAGS ***************** //
 
 .method-compendium{
-  display:none;
+  // display:none;
 }
 // method wrapper
 .method-container{

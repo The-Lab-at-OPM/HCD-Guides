@@ -35,6 +35,16 @@ function getAirtableData(reason, selectedTags, section, id){
 
 }
 
+function printMethodWrapper(event){
+  let method_id = event.target.id;
+  function printMethod(data){
+    if(data.length != 0){
+      populateMethodsCompendium(data);
+    }
+  }
+  getAirtableData(printMethod, undefined, undefined, [method_id])
+}
+
 function isSmallerArraySubset(smallArray, bigArray){
   for(var i=0; i<smallArray.length; i++){
     if(smallArray[i] != bigArray[i]){
@@ -125,25 +135,22 @@ function populateResourcesWrapper(section){
     let methodContainer = document.getElementById("method-results");
 
     for(let i=0; i<data.length; i++){
-      let method = document.createElement("a");
-      method.href = "";
+      let method = document.createElement("button");
+
       let tags = data[i].fields["Tags"];
-      let methodClassName = "method-result " + tags.join(" ");
+      let methodClassName = "card method-result usa-button " + tags.join(" ");
       method.className = methodClassName;
       method.id = data[i].id;
-
-      let button = document.createElement("button");
-      button.className = "usa-button card";
 
       let title = document.createElement("h5");
       title.innerHTML = data[i].fields["Name"];
       title.className = "title"
 
-      button.appendChild(title);
-      method.appendChild(button);
+      method.appendChild(title);
       methodContainer.appendChild(method);
 
     }
+    preparePageOnLoad();
 
     checkFromLocalStore();
     filterTemplates();
@@ -154,36 +161,42 @@ function populateResourcesWrapper(section){
 
 //populate methods compendium based on filtered methods
 function populateMethodsCompendium(data){
-  let toPrint = document.getElementsByClassName('methods-compendium')[0];
-  toPrint.innerHTML = "";
-  for(let i=0; i<data.length; i++){
-    let methodTitleContent = data[i].fields["Name"];
-    let methodDescriptionContent = data[i].fields["Notes"];
-    let methodImageContent = data[i].fields["Attachments"][0]["url"];
+    let toPrint = document.getElementsByClassName('methods-compendium')[0];
+    toPrint.innerHTML = "";
+    for(let i=0; i<data.length; i++){
+      let methodTitleContent = data[i].fields["Name"];
+      let methodDescriptionContent = data[i].fields["Notes"];
+      let methodImageContent = "";
 
-    let methodContainer = document.createElement("div");
-    methodContainer.className = "method-container";
+      if (data[i].fields["Attachments"]){
+      methodImageContent = data[i].fields["Attachments"][0]["url"];
+      }
+      let methodContainer = document.createElement("div");
+      methodContainer.className = "method-container";
 
-    let methodTitle = document.createElement("h3");
-    methodTitle.className = "method-title";
-    methodTitle.innerHTML = methodTitleContent;
+      let methodTitle = document.createElement("h3");
+      methodTitle.className = "method-title";
+      methodTitle.innerHTML = methodTitleContent;
 
-    let methodDescription = document.createElement("p");
-    methodDescription.className = "method-description";
-    methodDescription.innerHTML = methodDescriptionContent;
+      let methodDescription = document.createElement("p");
+      methodDescription.className = "method-description";
+      methodDescription.innerHTML = methodDescriptionContent;
 
-    let methodImage = document.createElement("img");
-    methodImage.className = "method-image";
-    methodImage.src = methodImageContent;
+      let methodImage = document.createElement("img");
+      methodImage.className = "method-image";
+      methodImage.src = methodImageContent;
 
-    methodContainer.appendChild(methodTitle);
-    methodContainer.appendChild(methodDescription);
-    methodContainer.appendChild(methodImage);
+      methodContainer.appendChild(methodTitle);
+      methodContainer.appendChild(methodDescription);
+      methodContainer.appendChild(methodImage);
 
-    toPrint.appendChild(methodContainer);
-  }
+      toPrint.appendChild(methodContainer);
+    }
 
-  printElem(toPrint);
+  //imagesLoaded function taken from https://github.com/desandro/imagesloaded
+  imagesLoaded(toPrint, function( instance ) {
+    printElem(toPrint);
+  });
 
 
 }
@@ -256,53 +269,6 @@ function hideUnpopulatedMethods(){
   }
 }
 
-//parse HTML response to gather requiste method title, description, and image
-function sanitizeFetch(string){
-  let methodMetadata = [];
-
-  let descRegex = /<p\s*class\s*=\s*"description"\s*>([^>]+?)<\/p>/g;
-  let description = descRegex.exec(string);
-  if(description != undefined){
-    let descNoFrontTag = description[0].replace(/<p[^>]*>/,"");
-    let descWithoutTags = descNoFrontTag.replace(/<\/p\s*>/,"");
-    methodMetadata.push(stripWhitespace(descWithoutTags));
-  }
-  else{
-    methodMetadata.push("Description unavailable.");
-  }
-
-  let titleRegex = /<h1\s*class\s*=\s*"site-page-title"\s*>([^>]+?)<\/h1>/g;
-  let title = titleRegex.exec(string);
-  if(title != undefined){
-    let titleNoFrontTag = title[0].replace(/<h1[^>]*>/,"");
-    let titleWithoutTags = titleNoFrontTag.replace(/<\/h1\s*>/,"");
-    methodMetadata.push(stripWhitespace(titleWithoutTags));
-  }
-  else{
-    methodMetadata.push("Design Method");
-  }
-
-  let imgSrcRegex = /<img\s*class\s*=\s*"example"\s*[^>]([^>]+?)>/g;
-  let srcRegex = /src="([^">]+)/;
-  let exampleTag = imgSrcRegex.exec(string);
-  if(exampleTag != undefined){
-    let exampleSrc = exampleTag[0].split(/src="([^">]+)/);
-    if(exampleSrc[1].includes("alt")){
-      methodMetadata.push("")
-    }
-    else{
-      methodMetadata.push(stripWhitespace(exampleSrc[1]));
-    }
-  }
-  else{
-    methodMetadata.push("");
-  }
-  return methodMetadata;
-}
-//strip whitespace from string
-function stripWhitespace(str) {
-  return str.replace(/^\s+|\s+$/g, '');
-}
 //unhide selected containers after filtering
 function showContainer(tags) {
   //   // loop through all lists and hide them
@@ -381,7 +347,7 @@ function filterTemplates(){
   let checkedFilters = "" ;
   for(var i = 0; i < filters.length; i++){
     if(filters[i].checked == true){
-      checkedFilters = checkedFilters +' '+ filterNames[i].innerHTML;
+      checkedFilters = checkedFilters +' '+ filterNames[i].id;
       localStorage.setItem(filterNames[i].innerHTML,"true");
     }
     else{
@@ -393,26 +359,38 @@ function filterTemplates(){
   showContainer(checkedFilters);
 }
 
+function resetFilters(){
+  let filters = document.getElementsByClassName("filter-checkbox");
+  let filterNames = document.getElementsByClassName("filter-checkbox-label");
+
+  let checkedFilters = "" ;
+  for(var i = 0; i < filters.length; i++){
+      filters[i].checked = false;
+      localStorage.setItem(filterNames[i].innerHTML,"false");
+  }
+  showContainer(checkedFilters);
+}
+
+
 //add requiste listeners to page and populate methods based on localStorage data
 function preparePageOnLoad(){
-  let airtableButton = document.getElementsByClassName("airtable-retrive")[0];
-  if(airtableButton != undefined){
-    airtableButton.addEventListener("click", getAirtableData,false);
-  }
 
-  let sectionSelector = document.getElementsByClassName("section-selector")[0];
-  if(sectionSelector != undefined){
-    let sectionNumber = sectionSelector.id;
-    populateResourcesWrapper(sectionNumber);
+  let methods = document.getElementsByClassName("method-result");
+  if(methods.length != 0){
+    for(var i =0 ; i<methods.length; i++ ){
 
+      methods[i].addEventListener("click", printMethodWrapper, false);
+    }
   }
 
   let sideNav = document.getElementsByClassName("usa-sidenav__item");
-  if(sideNav != undefined){
+  if(sideNav.length != 0){
     setActiveSidebar()
   }
   let filters = document.getElementsByClassName("filter-checkbox");
-  if(filters != undefined){
+  if(filters.length != 0){
+    let resetButton = document.getElementsByClassName("reset")[0];
+    resetButton.addEventListener("click", resetFilters,false);
     for(let i=0; i<filters.length ; i++){
       filters[i].addEventListener("click",filterTemplates,false);
     }
@@ -426,6 +404,12 @@ function preparePageOnLoad(){
 
 }
 document.addEventListener("DOMContentLoaded",function(){
+  let sectionSelector = document.getElementsByClassName("section-selector")[0];
+  if(sectionSelector != undefined){
+    let sectionNumber = sectionSelector.id;
+    populateResourcesWrapper(sectionNumber);
+
+  }
   preparePageOnLoad();
   //handle local storage page preparation
 

@@ -51,11 +51,14 @@
           {% assign parent_counter = parent_counter| plus: 1 %}
 
         {% endfor %}
+        {% if before_link%}
+
         <a href="{{before_link}}">
           <button class="usa-button sort-category">Previous</button>
         </a>
+        {% endif %}
       </div>
-      <div class="grid-col-1">
+      <div class="grid-col-4">
       </div>
       <div class="grid-col-fill">
 
@@ -104,9 +107,11 @@
           {% assign parent_counter = parent_counter| plus: 1 %}
         {% endfor %}
 
+        {% if after_link%}
         <a href="{{after_link}}">
           <button class="usa-button sort-category"> Next</button>
         </a>
+        {% endif %}
       </div>
     </div>
   </div>
