@@ -3,8 +3,7 @@ name: Research into Design
 title: Moving Research into Design
 layout: default
 permalink: /moving-research-into-design
-previous: /accessibility
-next: /create-project-level-principles
+
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dictum sit amet justo donec enim. Arcu cursus euismod quis viverra nibh cras. Viverra adipiscing at in tellus integer. Erat pellentesque adipiscing commodo elit at imperdiet dui accumsan sit. Ut enim blandit volutpat maecenas volutpat blandit. Vulputate ut pharetra sit amet aliquam id. At varius vel pharetra vel turpis. Etiam dignissim diam quis enim lobortis. Nisi lacus sed viverra tellus in hac habitasse platea. Mauris ultrices eros in cursus turpis. Lorem mollis aliquam ut porttitor leo a. Tortor at auctor urna nunc id cursus metus. Nibh mauris cursus mattis molestie. Vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt. Nisi est sit amet facilisis magna etiam. Turpis massa tincidunt dui ut ornare lectus. Non tellus orci ac auctor augue mauris. Odio aenean sed adipiscing diam donec. Amet facilisis magna etiam tempor orci eu lobortis elementum.
 

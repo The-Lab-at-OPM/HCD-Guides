@@ -42,7 +42,8 @@
               {% assign before_link = prev_parent.subfolderitems[last_child].href %}
               <!-- Otherwise, set "previous" link to previous parent -->
             {% else %}
-              {% assign before_link = site.data.sidenav.navigation[parent_counter].href %}
+              {% assign prev_parent_index = parent_counter | minus: 1 %}
+              {% assign before_link = site.data.sidenav.navigation[prev_parent_index].href %}
               {% break%}
             {% endif %}
           {% endif %}
