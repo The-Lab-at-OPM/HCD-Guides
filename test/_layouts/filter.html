@@ -11,7 +11,9 @@
   {% include header.html%}
 
   <div class = "default-container">
+    <div class = "top-sidenav">
     {% include sidenav.html %}
+    </div>
 
     <div class = " section-selector" id = '{{page.section}}'></div>
 
@@ -40,7 +42,7 @@
                     {% for filter-subcategory in filter-category.subfolderitems%}
                     <h5> {{filter-subcategory.subtitle}}</h5>
                     {% for filter in filter-subcategory.subsubfolderitems %}
-                    <input type="checkbox" class="filter-checkbox"> <label class="filter-checkbox-label">{{filter.label}}</label>
+                    <label class="filter-checkbox-label"><input type="checkbox" class="filter-checkbox">{{filter.label}}</label>
                     <br>
                     {% endfor %}
                     {% endfor %}
@@ -70,7 +72,7 @@
     <div class=" grid-container sort-categories ">
       <div class="grid-row grid-gap">
         <div class="grid-col-fill">
-          <button class="usa-button generate" id = "{{page.destination}}"> Generate my part one methods</button>
+          <button class="usa-button generate" id = "{{page.destination}}"> Generate my methods compendium</button>
         </div>
         <div>
         </div>
@@ -82,6 +84,10 @@
 
     {% include progress_buttons.html %}
   </main>
+
+  <div class = "bottom-sidenav">
+  {% include sidenav.html %}
+  </div>
 </div>
 {% include footer.html%}
 <script src="{{ "/assets/uswds/js/uswds.min.js" | relative_url }}">

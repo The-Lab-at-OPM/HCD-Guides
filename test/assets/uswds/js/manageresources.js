@@ -11,7 +11,10 @@ function getAirtableData(reason, selectedTags, section, id){
   if(id == undefined){
     id = ["all"];
   }
-  fetch("https://api.airtable.com/v0/appwodZA5P0LdCMm1/Methods?api_key=keyRLckANzjgwxAqE")
+////////////////////////////////////////////////////////////////////////
+//   Insert API Key after the equals sign                             //
+////////////////////////////////////////////////////////////////////////
+  fetch("https://api.airtable.com/v0/appwodZA5P0LdCMm1/Methods?api_key=")
   .then((resp) => resp.json())
   .then(data =>{
     let selectedTagsParam = selectedTags;
@@ -111,7 +114,7 @@ function animateAccordion(acc){
   this.classList.toggle("active");
   var panel = this.nextElementSibling;
   if (panel.style.maxHeight){
-    panel.style.maxHeight = null;
+    panel.style.maxHeight = undefined;
   } else {
     panel.style.maxHeight = panel.scrollHeight + "px";
   }
@@ -141,6 +144,9 @@ function populateResourcesWrapper(section){
       methodContainer.appendChild(method);
 
     }
+
+    checkFromLocalStore();
+    filterTemplates();
   }
   getAirtableData(populateResources, undefined,section,undefined);
 
@@ -176,18 +182,19 @@ function populateMethodsCompendium(data){
 
     toPrint.appendChild(methodContainer);
   }
+
   printElem(toPrint);
 
 
 }
 
 function printElem(elem){
-    var mywindow = window.open('', 'PRINT', 'height=400,width=600');
+    var mywindow = window.open();
 
     mywindow.document.write('<html><head><title>' + document.title  + '</title>');
     mywindow.document.write('</head><body >');
     mywindow.document.write('<h1>' + document.title  + '</h1>');
-    mywindow.document.write(document.getElementById(elem).innerHTML);
+    mywindow.document.write(elem.innerHTML);
     mywindow.document.write('</body></html>');
 
     mywindow.document.close(); // necessary for IE >= 10
@@ -196,6 +203,7 @@ function printElem(elem){
     mywindow.print();
     mywindow.close();
 
+    elem.style.display = "none";
     return true;
 }
 
@@ -205,7 +213,7 @@ Takes filtered methods and populates them into section methods reference books
 function generateMaster(){
   var lists = document.getElementById('method-results');
   //removes all methods from localStorage
-  if(lists !=null){
+  if(lists !=undefined){
     var results = lists.getElementsByTagName("div");
     var allMethods = []
     for(var i=0; i<results.length; i++){
@@ -229,7 +237,7 @@ function generateMaster(){
 // hides unselected methods from methods reference sections
 function hideUnpopulatedMethods(){
   let destination = document.getElementById("destination")
-  if (destination!= null){
+  if (destination!= undefined){
     let methods = document.getElementsByClassName("method");
     let image = document.getElementsByClassName("example");
     //hide all methods
@@ -239,7 +247,7 @@ function hideUnpopulatedMethods(){
     }
     // unhide them base on if they're selected
     for(var i =0; i<methods.length; i++){
-      if(localStorage.getItem(methods[i].id) != null){
+      if(localStorage.getItem(methods[i].id) != undefined){
         methods[i].style.display = 'inline-block'
         methods[i].style.visibility = 'visible'
       }
@@ -254,7 +262,7 @@ function sanitizeFetch(string){
 
   let descRegex = /<p\s*class\s*=\s*"description"\s*>([^>]+?)<\/p>/g;
   let description = descRegex.exec(string);
-  if(description != null){
+  if(description != undefined){
     let descNoFrontTag = description[0].replace(/<p[^>]*>/,"");
     let descWithoutTags = descNoFrontTag.replace(/<\/p\s*>/,"");
     methodMetadata.push(stripWhitespace(descWithoutTags));
@@ -265,7 +273,7 @@ function sanitizeFetch(string){
 
   let titleRegex = /<h1\s*class\s*=\s*"site-page-title"\s*>([^>]+?)<\/h1>/g;
   let title = titleRegex.exec(string);
-  if(title != null){
+  if(title != undefined){
     let titleNoFrontTag = title[0].replace(/<h1[^>]*>/,"");
     let titleWithoutTags = titleNoFrontTag.replace(/<\/h1\s*>/,"");
     methodMetadata.push(stripWhitespace(titleWithoutTags));
@@ -277,7 +285,7 @@ function sanitizeFetch(string){
   let imgSrcRegex = /<img\s*class\s*=\s*"example"\s*[^>]([^>]+?)>/g;
   let srcRegex = /src="([^">]+)/;
   let exampleTag = imgSrcRegex.exec(string);
-  if(exampleTag != null){
+  if(exampleTag != undefined){
     let exampleSrc = exampleTag[0].split(/src="([^">]+)/);
     if(exampleSrc[1].includes("alt")){
       methodMetadata.push("")
@@ -299,7 +307,7 @@ function stripWhitespace(str) {
 function showContainer(tags) {
   //   // loop through all lists and hide them
   var lists = document.getElementById('method-results');
-  if(lists !=null){
+  if(lists !=undefined){
 
     var results = document.getElementsByClassName('method-result');
     var arrayOfTags = tags.split(" ");
@@ -388,29 +396,30 @@ function filterTemplates(){
 //add requiste listeners to page and populate methods based on localStorage data
 function preparePageOnLoad(){
   let airtableButton = document.getElementsByClassName("airtable-retrive")[0];
-  if(airtableButton != null){
+  if(airtableButton != undefined){
     airtableButton.addEventListener("click", getAirtableData,false);
   }
 
-  let sectionSelector = document.getElementsByClassName("section-selector")
-  if(sectionSelector != null){
-    let sectionNumber = sectionSelector[0].id;
+  let sectionSelector = document.getElementsByClassName("section-selector")[0];
+  if(sectionSelector != undefined){
+    let sectionNumber = sectionSelector.id;
     populateResourcesWrapper(sectionNumber);
+
   }
 
   let sideNav = document.getElementsByClassName("usa-sidenav__item");
-  if(sideNav != null){
+  if(sideNav != undefined){
     setActiveSidebar()
   }
   let filters = document.getElementsByClassName("filter-checkbox");
-  if(filters != null){
+  if(filters != undefined){
     for(let i=0; i<filters.length ; i++){
       filters[i].addEventListener("click",filterTemplates,false);
     }
   }
 
   let generate = document.getElementsByClassName("generate")
-  if(generate.length !=0 && generate != null){
+  if(generate.length !=0 && generate != undefined){
     generate[0].addEventListener("click",generateMaster,false)
   }
 
@@ -421,7 +430,7 @@ document.addEventListener("DOMContentLoaded",function(){
   //handle local storage page preparation
 
   if (typeof(Storage) !== "undefined") {
-    if(localStorage.getItem("setBefore") == null){
+    if(localStorage.getItem("setBefore") == undefined){
       localStorage.setItem("setBefore", "true");
       prepLocalStore();
     }

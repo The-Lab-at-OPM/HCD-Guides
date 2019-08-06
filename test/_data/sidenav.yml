@@ -61,6 +61,6 @@ navigation:
         aria-control: d-three
         href: "/design-methods-test-three"
 
-  - title: Methods Library Accordion
+  - title: Methods Library
     aria-control: d
-    href: /all-resources-accordion
+    href: /methods-library

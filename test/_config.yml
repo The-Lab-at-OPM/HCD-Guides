@@ -8,9 +8,6 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 # Build settings
 markdown: kramdown
 
-collections:
-  resources:
-    output: true
 
 exclude:
   - assets/js/src

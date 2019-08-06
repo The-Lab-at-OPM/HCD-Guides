@@ -11,19 +11,28 @@
   {% include header.html%}
   <div class = "default-container">
 
+    <div class = "top-sidenav">
     {% include sidenav.html %}
+    </div>
 
     <main id="main-content" class ="main-content test">
       <div class="styleguide-content usa-prose site-prose">
         <h1 class = "site-page-title"> {{page.title}} </h1>
 
         {{ content }}
+
+        {% include progress_buttons.html %}
+
       </div>
 
-      {% include progress_buttons.html %}
 
 
     </main>
+
+
+    <div class = "bottom-sidenav">
+    {% include sidenav.html %}
+    </div>
   </div>
   {% include footer.html%}
 
