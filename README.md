@@ -2,14 +2,8 @@
 
 While design projects are not the typical project collaborated upon on the Github platform, much of our work can benefit from Github's structure and flow. If you are new to Github, please refer to this documentation to learn more: https://help.github.com/
 
-## Printing
-Files tagged PAGES are formatted for printing on an at-home printer on standard 8.5"x11" paper. 
-
-Files tagged SPREADS are formatted to print as full page spreads on 11"x17" paper. On standard paper, these will appear tiny. Do not print these unless you are printing with 11"x17" pages. 
-
-The HCD Discovery Operations Guide is formatted to be hole-punched with facing spreads. This is intentional. Please read the How to Use This Guide section for the logic and use of this asset.  
-
-The HCD Discovery Guide is formatted as a booklet. To create a booklet, please consult your local professional printer.
+## Viewing and Printing
+The Guides at the top level of this repo are best for viewing in spreads. The Guides in the file labeled "Guides-to-print" are best for at-home printing.
 
 ## Updates / Revisions Requests
 
