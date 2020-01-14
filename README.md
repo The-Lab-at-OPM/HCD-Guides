@@ -6,9 +6,9 @@ While design projects are not the typical project collaborated upon on the Githu
 The Guides at the top level of this repo are best for viewing in spreads. The Guides in the file labeled "Guides-to-print" are best for at-home printing.
 
 ## Digital Versions
-Digital versions of the Design Phase Guides are in beta.
-*[HCD Design Phase Concept Guide beta] (https://hcd-design-phase-concept-guide.netlify.com/)
-*[HCD Design Phase Operations Guide beta] (https://hcd-design-ops-guide.netlify.com/)
+Digital versions of the Design Phase Guides are in beta. 
+1. HCD Design Phase Concept Guide: https://hcd-design-phase-concept-guide.netlify.com/
+2. HCD Design Phase Operations Guide: https://hcd-design-ops-guide.netlify.com/
 
 ## Updates / Revisions Requests
 
